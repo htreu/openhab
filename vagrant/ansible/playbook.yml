@@ -18,6 +18,21 @@
       - org.openhab.binding.http-{{ openhab_version }}.jar  
       - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
     openhab_myopenhab: "{{ extern_base }}/"
+    openhab_items:
+      - bluetooth.items
+      - eib.items
+      - http.items
+      - onewire.items
+      - sunext.items
+    openhab_rules:
+      - HaustuerAussen.rules
+      - gf_lights.rules
+      - music.rules
+      - sunext.rules
+      - Zirkulation.rules
+      - kellerlicht.rules
+      - rollershutter.rules
+      - wlan.rules
     dependencies:
       - apt
       - unzip
@@ -45,6 +60,20 @@
     - name: install openhab init script
       command: cp {{ openhab_init_script }} /etc/init.d/openhab creates=/etc/init.d/openhab
       sudo: yes
+
+    - name: install openhab.cfg
+      template: src=../files/openhab/configurations/openhab.cfg.j2 dest={{ openhab_home }}/configurations/openhab.cfg owner=vagrant group=vagrant
+    - name: install openhab items
+      command: cp {{ files_base }}/openhab/configurations/items/{{ item }} {{ openhab_home }}/configurations/items/{{ item }} creates={{ openhab_home }}/configurations/items/{{ item }}
+      with_items: openhab_items
+    - name: install openhab rules
+      command: cp {{ files_base }}/openhab/configurations/rules/{{ item }} {{ openhab_home }}/configurations/rules/{{ item }} creates={{ openhab_home }}/configurations/rules/{{ item }}
+      with_items: openhab_rules
+    - name: install openhab sitemaps
+      command: cp {{ files_base }}/openhab/configurations/sitemaps/home.sitemap {{ openhab_home }}/configurations/sitemaps/ creates={{ openhab_home }}/configurations/sitemaps/home.sitemap
+    - name: install openhab persistence
+      command: cp {{ files_base }}/openhab/configurations/persistence/rrd4j.persist {{ openhab_home }}/configurations/persistence/ creates={{ openhab_home }}/configurations/persistence/rrd4j.persist
+
     - name: install openhab service
       command: update-rc.d openhab defaults creates=/etc/rc5.d/S20openhab
       sudo: yes
