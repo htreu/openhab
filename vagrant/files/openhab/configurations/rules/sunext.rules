@@ -1,0 +1,213 @@
+/**
+ * openHAB, the open Home Automation Bus.
+ * Copyright (C) 2010-2012, openHAB.org <admin@openhab.org>
+ *
+ * See the contributors.txt file in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses>.
+ *
+ * Additional permission under GNU GPL version 3 section 7
+ *
+ * If you modify this Program, or any covered work, by linking or
+ * combining it with Eclipse (or a modified version of that library),
+ * containing parts covered by the terms of the Eclipse Public License
+ * (EPL), the licensors of this Program grant you additional permission
+ * to convey the resulting work.
+ */
+
+import org.openhab.core.library.types.*
+import java.lang.Math
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
+
+
+/**
+ * Sunrise and Sunset - Facade illumination control - Azimuth and Sunheight
+ * 
+ * Code is based in part on equations and formulas from:: http://lexikon.astronomie.info
+ * 
+ * @author Helmut Lehmeyer
+ * 
+ * @version 0.1
+ *
+ */
+
+// location and building orientation in degrees 
+var double longitude = 6.617417335510254
+var double latitude = 51.19817121538	
+var Number diffToFasade = 5 
+
+//var Number diffToFasade = -26.09 // that means Northfasade looks abit more to west. When azimut is between -26.09 or 333,91 and 153,91 (180 + diffToFasade) east-fasade is illuminated
+
+rule "Sun Calculations"
+when
+	Time cron "0 0/20 * * * ?"
+then
+
+	// Main Variables
+	var Number sunrise		// Sunrise at given length and timezone in hours
+	var int sunriseHours	// Sunrise hours
+	var int sunriseMinutes	// Sunrise minutes
+	var Number sunset		// Sunset at given length and timezone in hours
+	var int sunsetHours		// Sunset hours
+	var int sunsetMinutes	// Sunset minutes
+	var Number azimut		// Azimuth in degrees: 0°-north, 90°-east, 180°-south, 270°-west
+	var Number height		// Height with refractive correction in degrees
+	
+	// Helper Variables
+	var int leapyear
+	var int doy
+	
+	//Grad/Rad
+	var Number RAD = (Math::PI / 180)
+	
+	//Date and Time
+	var Calendar current_time = java::util::Calendar::getInstance(TimeZone::getTimeZone("GMT"))
+	var local_time  = java::util::Calendar::getInstance(TimeZone::getTimeZone("Europe/Berlin"))
+	var year 		 				= current_time.get(java::util::Calendar::YEAR)
+	var month        				= (current_time.get(java::util::Calendar::MONTH) + 1)
+	var Number day          		= current_time.get(java::util::Calendar::DAY_OF_MONTH)
+	var Number hour 				= current_time.get(java::util::Calendar::HOUR_OF_DAY)
+	var Number minute       		= current_time.get(java::util::Calendar::MINUTE)
+	var Number second       		= current_time.get(java::util::Calendar::SECOND)
+	var localgmtdiff                = (local_time.get(java::util::Calendar::ZONE_OFFSET) + local_time.get(java::util::Calendar::DST_OFFSET))/3600000 //Timezone
+
+	//Leapyear
+	leapyear = 0
+	if((year % 4) == 0 || (year % 400) == 0 && (year % 100) != 0)leapyear = 1
+
+	//Day of Year
+	doy = Math::round((Math::floor((275 * month)/9) - (leapyear+1) * Math::floor((month + 9)/12) + day -30).intValue())
+
+	var latRad 			= (RAD * latitude).doubleValue()				// Latitude in radians
+	var sunMidpointH	= (RAD * (-(50.0/60.0))).doubleValue()			// Height of Sun midpoint at sunrise: radius + refraction
+	
+	// Solar declination
+	// Declination of the sun in radians
+	// Formula 2008 by Arnold(at)Barmettler.com, fit to 20 years of average declinations (2008-2017)
+	var declination 	=  0.409526325277017*Math::sin((0.0169060504029192*(doy - 80.0856919827619)).doubleValue())
+	
+	// time difference
+	// duration of the half arc in hours: The time of sunrise (sunMidpointH) to the highest level in the south
+	var timedifference 	= 12.0*Math::acos(((Math::sin(sunMidpointH) - Math::sin(latRad) * Math::sin(declination.doubleValue())) / (Math::cos(latRad) * Math::cos(declination.doubleValue()))).doubleValue())/Math::PI
+
+	// Time equation
+	// Difference between true and mean solar time
+	// formula 2008 by Arnold(at)Barmettler.com, fit to 20 years of average equation of time (2008-2017)
+	var timeEquation 	= -0.170869921174742*Math::sin((0.0336997028793971 * doy + 0.465419984181394).doubleValue()) - 0.129890681040717*Math::sin((0.0178674832556871*doy - 0.167936777524864).doubleValue())
+	//var timeEquationval = 60.0*timeEquation
+	
+	//////////////////////////////////////////////////////////
+	// calculation of sunrise and sunset
+	sunrise    			= 12.0 - timedifference - timeEquation 				// Sunrise at 0 ° longitude
+	sunset  			= 12.0 + timedifference - timeEquation				// Sunset at 0 ° longitude
+	sunrise    			= sunrise - longitude /15.0 + localgmtdiff 			// Sunrise at given length and timezone in hours
+	sunset  			= sunset - longitude /15.0 + localgmtdiff 			// Sunset at given length and timezone in hours
+	sunriseHours 		= sunrise.intValue()														// Sunrise hours
+	sunriseMinutes		= (Math::IEEEremainder(sunrise.doubleValue(), sunriseHours)*60).intValue()	// Sunrise minutes
+	sunsetHours 		= sunset.intValue()															// Sunset hours
+	sunsetMinutes 		= (Math::IEEEremainder(sunset.doubleValue(), sunsetHours)*60).intValue()	// Sunrise minutes
+		
+	//////////////////////////////////////////////////////////
+	// Now azimuth and elevation at a given Time or Date
+	var time 			= hour+localgmtdiff+(minute/60.0)+(second/60.0/60.0)	// Time in hours and decimal minutes, for the calculation of azimuth and elevation
+	var timeSinceNoon  = time+longitude/15.0-localgmtdiff -12 + timeEquation	// Time in hours since the sun in the south
+	
+	// Azimuth and altitude of the sun (without refraction)
+	var cosdec 			= Math::cos(declination.doubleValue())
+	var sindec 			= Math::sin(declination.doubleValue())
+	// 1.0027379: Correction factor for Stardate, 1.0/365.25: Progression of the right ascension of the sun in one day in degrees
+	var lha 			= timeSinceNoon*(1.0027379 - 1.0/365.25)*15*RAD 		// Hour angle in radians since true noon
+	var coslha 			= Math::cos(lha.doubleValue())
+	var sinlha 			= Math::sin(lha.doubleValue())
+	var coslat 			= Math::cos(latRad)
+	var sinlat 			= Math::sin(latRad)
+	var N 				= -cosdec * sinlha
+	var D 				= sindec * coslat - cosdec * coslha * sinlat
+	var azimutrad 		= Math::atan2(N.doubleValue(), D.doubleValue()).doubleValue()
+	if (azimutrad<0.0) azimutrad = (azimutrad + 2.0*Math::PI).doubleValue() 														// Azimuth. North = 0, East = pi / 2, West = 3/4pi
+	var heightrad  		= Math::asin( ((sindec * sinlat).doubleValue() + (cosdec * coslha * coslat).doubleValue()).doubleValue() ) 	// Height of the solar center
+
+	azimut 				= azimutrad/RAD // Azimuth in degrees: 0°-north, 90°-east, 180°-south, 270°-west
+	height  			= heightrad/RAD // Height with refractive correction in degrees	
+	
+	//////////////////////////////////////////////////////////
+	// Facade illumination control
+	// When is the sun shining on the facade and when it is shaded again: east south west north
+	// The standard house has four in 90 degree angles arranged facades
+	// To calculate when a facade is illuminated, I use the difference between vertical angle to a facade (diffToFasade)
+
+	var eastFasadeIn 	= 90 -90 + diffToFasade		//For example: -26.09 or 333,91 - because 0 and 360 is north
+	var eastFasadeOut 	= 90 +90 + diffToFasade		//153,91
+	var southFasadeIn 	= 180-90 + diffToFasade		//63,91
+	var southFasadeOut 	= 180+90 + diffToFasade		//243,91
+	var westFasadeIn 	= 270-90 + diffToFasade		//153,91	
+	var westFasadeOut 	= 270+90 + diffToFasade		//333,91
+	var northFasadeIn 	= 360-90 + diffToFasade		//243,91
+	var northFasadeOut 	= 360+90 + diffToFasade		//386,09 or 63,91 -  because 360 and 0 is north
+	
+	//////////////////////////////////////////////////////////
+	// What to do with these Data:
+	
+	if (sunriseHours < 10) sunriseHours = "0" + sunriseHours
+	if (sunriseMinutes < 10) sunriseMinutes = "0" + sunriseMinutes
+
+	if (sunsetHours < 10) sunsetHours = "0" + sunsetHours
+	if (sunsetMinutes < 10) sunsetMinutes = "0" + sunsetMinutes
+
+	// Sunrise and Sunset
+	println("sunrise: "+sunriseHours+":"+sunriseMinutes+" = "+sunrise)
+	println("sunset: "+sunsetHours+":"+sunsetMinutes+" = "+sunset)
+	
+	postUpdate( Sunrise_Time,	""+sunriseHours+":"+sunriseMinutes+" Uhr") 
+	postUpdate(Sunset_Time,		""+sunsetHours+":"+sunsetMinutes+" Uhr")
+	
+	// How it is shown in News: https://groups.google.com/forum/?fromgroups#!topic/openhab/VGbh6LN1KzQ you can switch Sun_DawnTwilight values too:	
+	postUpdate(Sun_DawnTwilight_Solar,        	if( height < 0  ) {ON} else {OFF})
+	postUpdate(Sun_DawnTwilight_Civil,        	if( height < 6  ) {ON} else {OFF})
+	postUpdate(Sun_DawnTwilight_Nautical,     	if( height < 12 ) {ON} else {OFF})
+	postUpdate(Sun_DawnTwilight_Astronomical, 	if( height < 18 ) {ON} else {OFF})
+	
+	// Azimuth and Sunheight
+	println("azimut = "+azimut)
+	println("height = "+height)
+	
+	postUpdate(Sun_Azimut,  azimut )
+	postUpdate(Sun_Height, 	height )
+	
+	// Facades, knowing when a Fasade is illuminated
+	postUpdate(Sun_Fasade_Illum_East,		if( azimut > eastFasadeIn  && azimut < eastFasadeOut  && Sun_DawnTwilight_Astronomical.state == OFF) ON else OFF)
+	postUpdate(Sun_Fasade_Illum_South,		if( azimut > southFasadeIn && azimut < southFasadeOut && Sun_DawnTwilight_Astronomical.state == OFF) ON else OFF)
+	postUpdate(Sun_Fasade_Illum_West,     	if( azimut > westFasadeIn  && azimut < westFasadeOut  && Sun_DawnTwilight_Astronomical.state == OFF) ON else OFF)
+	postUpdate(Sun_Fasade_Illum_North, 		if( azimut > northFasadeIn && azimut < northFasadeOut && Sun_DawnTwilight_Astronomical.state == OFF) ON else OFF)
+	
+	//////////////////////////////////////////////////////////
+	// for a complex circuit scene for blinds, here some possible influential factors:
+	//
+	// for example the door to terrace is open - blocking
+	// to the outside opening doors/windows are open - blocking
+	// there is no storm warning - blocking
+	// It is between sunrise and sunset
+	// current blinds-mode is automatic (after activated manually, there is a hysteresis of 2h before falling back in automode)
+	// sun is shining (data from weatherstation needs a hysteresis too)
+	// fasade is illuminated by sun
+	// it is needed solar heating in a room (temperature threshold whith hysteresis)
+	// house is in heating- or cooling-mode (based on weather forecast_conditions)
+	// is a scene control active (cinema-mode, private-mode -> all blinds dark or party-mode -> all blinds open)
+	//
+	
+	
+end

@@ -1,0 +1,8 @@
+rule Uhrforum_Angebot_Nixon
+when
+	Item Uhrforum_Nixon received update
+then
+	if (Uhrforum_Nixon.state.toString != null) {
+		sendMail("henning.treu@googlemail.com", "Uhrforum Angebot Update", Uhrforum_Nixon.state.toString)
+	}
+end

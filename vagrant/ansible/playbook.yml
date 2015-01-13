@@ -1,0 +1,53 @@
+---
+- hosts: all
+  vars:
+    java_home: /opt/java
+    openhab_home: /opt/openhab
+    files_base: /vagrant/files
+    extern_base: "{{ files_base }}/extern"
+    jdk_tar: "{{ extern_base }}/jdk-8u25-linux-i586.gz"
+    openhab_version: 1.6.1
+    openhab_runtime_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-runtime.zip"
+    openhab_addons_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-addons.zip"
+    openhab_init_script: "{{ files_base }}/openhab/openhab.init"
+    openhab_addons:
+      - org.openhab.binding.knx-{{ openhab_version }}.jar
+      - org.openhab.action.mail-{{ openhab_version }}.jar   
+      - org.openhab.binding.onewire-{{ openhab_version }}.jar
+      - org.openhab.action.xmpp-{{ openhab_version }}.jar
+      - org.openhab.binding.http-{{ openhab_version }}.jar  
+      - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
+    openhab_myopenhab: "{{ extern_base }}/"
+    dependencies:
+      - apt
+      - unzip
+
+  tasks:
+    - name: apt install dependencies
+      apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
+      sudo: yes
+      with_items: dependencies
+
+    - name: create java home
+      file: path={{ java_home }} state=directory owner=vagrant group=vagrant
+      sudo: yes
+    - name: install jdk
+      command: tar -xvo -f /vagrant/files/jdk-8u25-linux-i586.gz -C {{ java_home }} --strip-components=1 creates={{ java_home }}/bin
+
+    - name: create openhab home
+      file: path={{ openhab_home }} state=directory owner=vagrant group=vagrant 
+      sudo: yes
+    - name: install openhab runtime
+      command: unzip {{ openhab_runtime_zip }} -d {{ openhab_home }} creates={{ openhab_home }}/webapps
+    - name: install openhab addons
+      command: unzip {{ openhab_addons_zip }} {{ item }} -d {{ openhab_home }}/addons creates={{ openhab_home }}/addons/{{ item }}
+      with_items: openhab_addons
+    - name: install openhab init script
+      command: cp {{ openhab_init_script }} /etc/init.d/openhab creates=/etc/init.d/openhab
+      sudo: yes
+    - name: install openhab service
+      command: update-rc.d openhab defaults creates=/etc/rc5.d/S20openhab
+      sudo: yes
+    - name: start openhab
+      service: name=openhab enabled=yes state=started
+      sudo: yes

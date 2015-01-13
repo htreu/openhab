@@ -1,0 +1,15 @@
+rule cron_WLAN_On
+when
+	// 05:45
+	Time cron "0 45 5 * * ?"
+then
+	sendCommand(Lights_GF_Router, ON)
+end
+
+rule cron_WLAN_Off
+when
+	// 23:30
+	Time cron "0 30 23 * * ?"
+then
+	sendCommand(Lights_GF_Router, OFF)
+end

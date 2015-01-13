@@ -1,0 +1,31 @@
+rule cron_HaustuerAussen_OnMorning
+when
+	// an: 05:45
+	Time cron "0 45 5 * * ?"
+then
+	sendCommand(Lights_Outside_Frontdoor, ON)
+end
+
+rule cron_HaustuerAussen_OffMorning
+when
+        // aus: 08:15
+        Time cron "0 15 8 * * ?"
+then
+        sendCommand(Lights_Outside_Frontdoor, OFF)
+end
+
+rule cron_HaustuerAussen_OnEvening
+when
+	// an: 17:00
+	Time cron "0 30 16 * * ?"
+then
+	sendCommand(Lights_Outside_Frontdoor, ON)
+end
+
+rule cron_HaustuerAussen_OffEvening
+when
+        // aus: 22:30
+        Time cron "0 30 22 * * ?"
+then
+        sendCommand(Lights_Outside_Frontdoor, OFF)
+end

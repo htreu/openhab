@@ -1,0 +1,3 @@
+/*Switch MyMobile                                           { bluetooth="008865B202CD" }*/
+/*String UnknownDevices    "Unknown devices in range: [%s]" { bluetooth="?" }*/
+/*Number NoOfPairedDevices "Paired devices in range: [%d]"  { bluetooth="!" }*/

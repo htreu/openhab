@@ -1,0 +1,22 @@
+rule cron_Zirkulation_On
+when
+	Time cron "0 38  5 * * ?" or  // 05:38 - 05:40
+	Time cron "0 58  5 * * ?" or  // 05:58 - 06:00
+	Time cron "0 58  6 * * ?" or  // 06:58 - 07:00
+	Time cron "0 58 16 * * ?" or  // 16:58 - 17:00
+	Time cron "0 58 20 * * ?"     // 20:58 - 21:00
+	
+then
+	sendCommand(Lights_BASE_Zirkulationspumpe, ON)
+end
+
+rule cron_Zirkulation_Off
+when
+	Time cron "0 40 5 * * ?" or
+	Time cron "0 0  6 * * ?" or
+	Time cron "0 0  7 * * ?" or
+	Time cron "0 0 17 * * ?" or
+	Time cron "0 0 21 * * ?"
+then
+	sendCommand(Lights_BASE_Zirkulationspumpe, OFF)
+end

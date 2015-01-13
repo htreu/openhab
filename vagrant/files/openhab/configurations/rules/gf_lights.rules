@@ -1,0 +1,7 @@
+rule "Licht"
+when
+	Item Lights_GF_All received command OFF
+then
+	GF_All_OFF?.members.forEach(item,i|createTimer(now.plusMillis(i*100)) [|sendCommand(item, OFF)])
+	FF_All_OFF?.members.forEach(item,i|createTimer(now.plusMillis(i*100)) [|sendCommand(item, OFF)])
+end

@@ -1,0 +1,33 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+import org.joda.time.*
+
+var Timer kellerlicht = null
+var int minutes = 7
+
+rule "Kellerlicht"
+when
+	Item Lights_BASE_Keller received command
+then
+	if (receivedCommand==ON) {
+		if (kellerlicht == null) {
+			kellerlicht = createTimer(now.plusMinutes(minutes), [|
+				logInfo("Kellerlicht", "Timer kellerlicht executed")
+				sendCommand(Lights_BASE_Keller, OFF)
+			])
+			logInfo("Kellerlicht", "Timer kellerlicht created")		
+		} else {
+			kellerlicht.reschedule(now.plusMinutes(minutes))
+			logInfo("Kellerlicht", "Timer kellerlicht rescheduled")
+		}
+	} else if (receivedCommand == OFF) {
+		if (kellerlicht != null) {
+			kellerlicht.cancel
+			kellerlicht=null
+			logInfo("Kellerlicht", "Timer kellerlicht removed")
+		}
+	}
+	
+end

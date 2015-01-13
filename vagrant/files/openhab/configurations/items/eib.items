@@ -1,0 +1,85 @@
+Group All
+Group gGF 		(All)
+Group gFF 		(All)
+Group gC 		(All)
+Group Outdoor 	(All)
+Group Shutters 	(All)
+Group Weather 	(All)
+Group Status 	(All)
+
+Group GF_Lights		"Licht Erdgeschoss"  <groundfloor>	(gGF)
+Group GF_Living 	"Wohnzimmer" 	     <video> 		(gGF, GF_Lights)
+Group GF_Kitchen 	"Küche" 		     <kitchen> 		(gGF, GF_Lights)
+Group GF_Toilet 	"Gästebad" 		     <bath> 		(gGF, GF_Lights)
+Group GF_Shutter	"Rolläden"			 				(gGF)
+Group GF_Corridor 	"Flur" 		         <corridor> 	(gGF, GF_Lights)
+Group GF_Terrace	"Terasse" 			 <terrace>		(gGF, GF_Lights, Outdoor)
+Group GF_All_OFF    "Erdgeschoss aus" /* Dummy Gruppe, alle Lampen im Erdgeschoss AUS.*/
+
+Group FF_Lights		"Licht Obergeschoss" <firstfloor>	(gFF)
+Group FF_Bath 		"Badezimmer" 		 <bath> 		(gFF)
+Group FF_Child 		"Kinderzimmer"		 <kids> 		(gFF)
+Group FF_Bed 		"Schlafzimmer" 		 <bedroom>		(gFF)
+Group FF_Shutter	"Rolläden"			 				(gFF)
+Group FF_Corridor 	"Flur" 				 <corridor> 	(gFF)
+Group FF_All_OFF    "Obergeschoss aus" /* Dummy Gruppe, alle Lampen im Obergeschoss AUS.*/
+
+
+/* Date */
+/* 0/7/100	Zeitversand EIB-Gruppenadresse Datum	11.001 */
+/* 0/7/101	Zeitversand EIB-Gruppenadresse Uhrzeit	10.001 */
+
+/* Lights */
+Switch Lights_BASE_Keller "Keller Flur"                   (gC, Lights) { knx="1/1/1+<11/1/1"  }
+Switch Lights_BASE_Zirkulationspumpe "Zirkulationspumpe"  (Lights) { knx="1/3/1+<11/3/1"  }
+
+Switch Lights_GF_Router "Router"                          (Lights) { knx="2/3/1+<12/3/1"  }
+Switch Lights_GF_Tuerklingel "Türklingel"                 (Lights) { knx="2/4/0" }
+
+Switch Lights_GF_All "Licht EG"                           (GF_Lights, Lights) { knx="2/0/1"  } 
+Switch Lights_GF_Kueche_Unterschrank "Küche Unterschrank" (GF_Lights, GF_Kitchen, Lights, GF_All_OFF) { knx="2/1/21+<12/1/21" }
+Switch Lights_GF_Kueche_Decke "Küche Decke"               (GF_Lights, GF_Kitchen, Lights, GF_All_OFF) { knx="2/1/14+<12/1/14" }
+Switch Lights_GF_Bad "Gäste WC"                           (GF_Lights, GF_Toilet, Lights, GF_All_OFF) { knx="2/1/12+<12/1/12" }
+Switch Lights_GF_Flur "Flur EG"                           (GF_Lights, GF_Corridor, Lights, GF_All_OFF) { knx="2/1/10+<12/1/10" }
+Switch Lights_GF_Eingang_Diele "Eingang Diele"            (GF_Lights, GF_Corridor, Lights, GF_All_OFF) { knx="2/1/16+</12/1/16" }
+Switch Lights_GF_WZ_Ecke "Wohnzimmer Eckenleuchten"       (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="2/1/17+<12/1/17" }
+Switch Lights_GF_WZ "Wohnzimmer"                          (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="<2/1/13" }
+Switch Lights_GF_Essen "Essecke"                          (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="2/1/11+</12/1/11" }
+
+/* Radio */
+Switch Switch_GF_Radio { knx = "5/1/0" }
+Switch Lights_GF_Hifi "Verstärker" <socket>  (GF_Living, GF_All_OFF)	{ knx="2/1/20+<12/1/20" }
+Number Radio "Radio" (Musik)
+
+Switch Lights_Outside_Frontdoor "Eingang aussen"          (Outdoor) { knx="2/1/8+<12/1/8" }
+Switch Lights_Outside_Essecke "Essecke Aussen"            (Outdoor, GF_Terrace) { knx="2/1/19+<12/1/19" }
+Switch Lights_Outside_Terrasse_Boden "Terrasse Boden"     (Outdoor, GF_Terrace) { knx="2/1/22+<12/1/22" }
+Switch Lights_Outside_Terrasse "Terasse"                  (Outdoor, GF_Terrace) { knx="2/1/18+<12/1/18" }
+Switch Lights_Outside_Giebel_Boden "Giebel_Boden"         (Outdoor, GF_Terrace) { knx="2/1/9+<12/1/9" }
+
+
+Switch Lights_FF_All "Licht OG"                           (FF_Lights, Lights) { knx="3/0/3" }
+Switch Lights_FF_Bett_Links "Bett links"                  (FF_Bed, FF_Lights, Lights, FF_All_OFF) { knx="3/1/9+<13/1/9" }
+Switch Lights_FF_Bett_Rechts "Bett rechts"                (FF_Bed, FF_Lights, Lights, FF_All_OFF) { knx="3/1/8+<13/1/8" }
+Switch Lights_FF_Schlafzimmer "Schlafzimmer"              (FF_Bed, FF_Lights, Lights, FF_All_OFF) { knx="3/1/4+13/1/4" }
+Switch Lights_FF_Bad_Decke "Bad Decke"                    (FF_Bath, FF_Lights, FF_Bath, Lights, FF_All_OFF) { knx="3/1/6+<13/1/6" }
+Switch Lights_FF_Treppe "Treppe"                          (FF_Corridor, FF_Lights, Lights, FF_All_OFF) { knx="3/1/11+<13/1/11" }
+Switch Lights_FF_Flur "Flu OGr"                           (FF_Corridor, FF_Lights, Lights, FF_All_OFF) { knx="3/1/7+<13/1/7" }
+Switch Lights_FF_Kinderzimmer "Kinderzimmer"              (FF_Child, FF_Lights, Lights, FF_All_OFF) { knx="3/1/3+<13/1/3" }
+Switch Lights_FF_Ankleide "Ankleide"                      (FF_Lights, Lights, FF_All_OFF) { knx="3/1/5+<13/1/5" }
+
+Switch Lights_FF_Balkon "Balkon"                          (Outdoor, FF_Lights, Lights) { knx="3/1/10+<13/1/10" }
+
+
+Switch Lights_TF_Flur "Flur"                              (Lights) { knx="4/1/2+<14/1/2" }
+Switch Lights_TF_Bad "Bad"                                (Lights) { knx="4/1/1+<14/1/1" }
+Switch Lights_TF_Room "Zimmer Dach"                       (Lights) { knx="4/1/0" }
+
+/* Rollershutters Up/Down, Stop/Move */
+/* Rollershutter Shutter_GF_Living "Shutter" (GF_Living, Shutters) { knx="4/2/10, 4/2/11" }  */
+Rollershutter Shutter_GF_Kitchen "Rollo Küche"               (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/30, 2/2/31" }
+Rollershutter Shutter_GF_Essen "Rollo Essen"                 (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/32, 2/2/33" }
+Rollershutter Shutter_GF_WZ_links "Rollo Wohnzimmer links"   (GF_Shutter, GF_Living, Shutters)  { knx="2/2/34, 2/2/35" }
+Rollershutter Shutter_GF_WZ_rechts "Rollo Wohnzimmer rechts" (GF_Shutter, GF_Living, Shutters)  { knx="2/2/36, 2/2/37" }
+
+Rollershutter Shutter_FF_Bath "Rollo Badezimmer"             (FF_Shutter, FF_Bath, Shutters)    { knx="3/2/30, 3/2/31" }

@@ -1,0 +1,6 @@
+rule Hello
+when
+	System started
+then
+	//sendXMPP("henning.treu@googlemail.com", "openHab started.")
+end
