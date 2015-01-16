@@ -1,4 +1,4 @@
-group_vars/all
+vagrant/ansible/group_vars/all
 .DS_Store
 .vagrant
 extern/
