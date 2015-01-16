@@ -1,0 +1,6 @@
+---
+openhab_mail: <mail>
+openhab_mail_pass: <pwd>
+my_mail: <my_mail>
+secret: <secret>
+uuid: <uuid>
