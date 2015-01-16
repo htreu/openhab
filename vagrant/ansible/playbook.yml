@@ -12,10 +12,10 @@
     openhab_init_script: "{{ files_base }}/openhab/openhab.init"
     openhab_addons:
       - org.openhab.binding.knx-{{ openhab_version }}.jar
-      - org.openhab.action.mail-{{ openhab_version }}.jar   
+      - org.openhab.action.mail-{{ openhab_version }}.jar
       - org.openhab.binding.onewire-{{ openhab_version }}.jar
       - org.openhab.action.xmpp-{{ openhab_version }}.jar
-      - org.openhab.binding.http-{{ openhab_version }}.jar  
+      - org.openhab.binding.http-{{ openhab_version }}.jar
       - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
     openhab_myopenhab: "{{ extern_base }}/"
     openhab_items:
@@ -47,10 +47,10 @@
       file: path={{ java_home }} state=directory owner=vagrant group=vagrant
       sudo: yes
     - name: install jdk
-      command: tar -xvo -f /vagrant/files/jdk-8u25-linux-i586.gz -C {{ java_home }} --strip-components=1 creates={{ java_home }}/bin
+      command: tar -xvo -f {{ jdk_tar }} -C {{ java_home }} --strip-components=1 creates={{ java_home }}/bin
 
     - name: create openhab home
-      file: path={{ openhab_home }} state=directory owner=vagrant group=vagrant 
+      file: path={{ openhab_home }} state=directory owner=vagrant group=vagrant
       sudo: yes
     - name: install openhab runtime
       command: unzip {{ openhab_runtime_zip }} -d {{ openhab_home }} creates={{ openhab_home }}/webapps
@@ -74,9 +74,6 @@
     - name: install openhab persistence
       command: cp {{ files_base }}/openhab/configurations/persistence/rrd4j.persist {{ openhab_home }}/configurations/persistence/ creates={{ openhab_home }}/configurations/persistence/rrd4j.persist
 
-    - name: install openhab service
-      command: update-rc.d openhab defaults creates=/etc/rc5.d/S20openhab
-      sudo: yes
     - name: start openhab
       service: name=openhab enabled=yes state=started
       sudo: yes
