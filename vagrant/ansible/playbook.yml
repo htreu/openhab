@@ -17,7 +17,7 @@
       - org.openhab.action.xmpp-{{ openhab_version }}.jar
       - org.openhab.binding.http-{{ openhab_version }}.jar
       - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
-    openhab_myopenhab: "{{ extern_base }}/"
+    openhab_myopenhab_url: https://my.openhab.org/downloads/org.openhab.io.myopenhab-1.4.0-SNAPSHOT.jar
     openhab_items:
       - bluetooth.items
       - eib.items
@@ -57,6 +57,8 @@
     - name: install openhab addons
       command: unzip {{ openhab_addons_zip }} {{ item }} -d {{ openhab_home }}/addons creates={{ openhab_home }}/addons/{{ item }}
       with_items: openhab_addons
+    - name: install myopenhab bundle
+      get_url: url={{ openhab_myopenhab_url }} dest={{ openhab_home }}/addons
     - name: install openhab init script
       command: cp {{ openhab_init_script }} /etc/init.d/openhab creates=/etc/init.d/openhab
       sudo: yes
