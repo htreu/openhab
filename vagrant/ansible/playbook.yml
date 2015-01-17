@@ -75,6 +75,10 @@
       command: cp {{ files_base }}/openhab/configurations/sitemaps/home.sitemap {{ openhab_home }}/configurations/sitemaps/ creates={{ openhab_home }}/configurations/sitemaps/home.sitemap
     - name: install openhab persistence
       command: cp {{ files_base }}/openhab/configurations/persistence/rrd4j.persist {{ openhab_home }}/configurations/persistence/ creates={{ openhab_home }}/configurations/persistence/rrd4j.persist
+    - name: install secret
+      copy: content={{ secret }} dest={{ openhab_home }}/webapps/statis/secret
+    - name: install uuid
+      copy: content={{ uuid }} dest={{ openhab_home }}/webapps/static/uuid
 
     - name: start openhab
       service: name=openhab enabled=yes state=started
