@@ -33,6 +33,9 @@
       - kellerlicht.rules
       - rollershutter.rules
       - wlan.rules
+    knx_ip: 192.168.0.10
+    local_ip: 192.168.0.98
+    onewire_ip: 192.168.0.6
     dependencies:
       - apt
       - unzip
@@ -76,7 +79,7 @@
     - name: install openhab persistence
       command: cp {{ files_base }}/openhab/configurations/persistence/rrd4j.persist {{ openhab_home }}/configurations/persistence/ creates={{ openhab_home }}/configurations/persistence/rrd4j.persist
     - name: install secret
-      copy: content={{ secret }} dest={{ openhab_home }}/webapps/statis/secret
+      copy: content={{ secret }} dest={{ openhab_home }}/webapps/static/secret
     - name: install uuid
       copy: content={{ uuid }} dest={{ openhab_home }}/webapps/static/uuid
 

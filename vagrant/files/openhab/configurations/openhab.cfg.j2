@@ -4,9 +4,9 @@
 # update openHAB one day.
 
 
-####################################################################################### 
+#######################################################################################
 #####                        General configurations                               #####
-####################################################################################### 
+#######################################################################################
 
 # Configuration folders (must exist as a subdirectory of "configurations"; the value
 # tells the number of seconds for the next scan of the directory for changes. A
@@ -22,7 +22,7 @@ folder:persistence=10,persist
 # configures the security options. The following values are valid:
 # ON = security is switched on generally
 # OFF = security is switched off generally
-# EXTERNAL = security is switched on for external requests 
+# EXTERNAL = security is switched on for external requests
 #            (e.g. originating from the Internet) only
 # (optional, defaults to 'OFF')
 #security:option=
@@ -34,14 +34,14 @@ folder:persistence=10,persist
 # The name of the default persistence service to use
 persistence:default=rrd4j
 
-# The refresh interval for the main configuration file. A value of '-1' 
+# The refresh interval for the main configuration file. A value of '-1'
 # deactivates the scan (optional, defaults to '-1' hence scanning is deactivated)
 #mainconfig:refresh=
 
 
-####################################################################################### 
+#######################################################################################
 #####                       Action configurations                                 #####
-####################################################################################### 
+#######################################################################################
 
 ######################## Mail Action configuration ####################################
 #
@@ -94,7 +94,7 @@ xmpp:consoleusers={{ my_mail }}
 #prowl:defaultpriority=
 
 # the url of the Prowl public api
-# (optional, defaults to 'https://prowl.weks.net/publicapi/') 
+# (optional, defaults to 'https://prowl.weks.net/publicapi/')
 #prowl:url=
 
 ########################### Twitter Action configuration ##############################
@@ -130,9 +130,9 @@ xmpp:consoleusers={{ my_mail }}
 #nma:defaultUrl=
 
 
-####################################################################################### 
+#######################################################################################
 #####                   I/O component configurations                              #####
-####################################################################################### 
+#######################################################################################
 
 ########################## Google Calendar configuration ##############################
 #
@@ -173,31 +173,31 @@ xmpp:consoleusers={{ my_mail }}
 # files (optional, defaults to '.')
 #dropbox:contentdir=
 
-# defines a comma separated list of regular expressions which matches the 
+# defines a comma separated list of regular expressions which matches the
 # filenames to upload to Dropbox (optional, defaults to '/configurations/.*,
 # /logs/.*, /etc/.*')
 #dropbox:uploadfilter=
 
-# defines a comma separated list of regular expressions which matches the 
+# defines a comma separated list of regular expressions which matches the
 # filenames to download from Dropbox (optional, defaults to '/configurations/.*')
 #dropbox:downloadfilter=
 
 ############################# MaryTTS configuration ###################################
 #
-# the default voice used by the MaryTTS engine. Available voices are: bits1-hsmm 
+# the default voice used by the MaryTTS engine. Available voices are: bits1-hsmm
 # (german, female), bits3-hsmm (german, male), cmu-slt-hsmm (english, male) (optional,
 # defaults to the systems' default voice or the first available voice)
 #marytts:voice=
 
 
-####################################################################################### 
+#######################################################################################
 #####                      Persistence configurations                             #####
-####################################################################################### 
+#######################################################################################
 
 ######################## Open.Sen.se Persistence Service ##############################
 #
-# the url of the Open.Sen.se public api (optional, defaults to 
-# 'http://api.sen.se/events/?sense_key=') 
+# the url of the Open.Sen.se public api (optional, defaults to
+# 'http://api.sen.se/events/?sense_key=')
 #sense:url=
 
 # the Open.Sen.se API-Key for authentication (generated on the Open.Sen.se website)
@@ -212,10 +212,10 @@ logging:pattern=%date{ISO8601} - %-25logger: %msg%n
 
 ########################### Db4o Persistence Service ##################################
 #
-# the backup interval as Cron-Expression (optional, defaults to '0 0 1 * * ?' 
+# the backup interval as Cron-Expression (optional, defaults to '0 0 1 * * ?'
 # which means every morning at 1 o'clock)
 #db4o:backupinterval=
-	
+
 # the commit interval in seconds (optional, default to '5')
 #db4o:commitinterval=
 
@@ -239,7 +239,7 @@ sql:url=
 
 ############################ Cosm Persistence Service #################################
 #
-# the url of the Cosm feed (optional, defaults to 'http://api.cosm.com/v2/feeds/') 
+# the url of the Cosm feed (optional, defaults to 'http://api.cosm.com/v2/feeds/')
 #cosm:url=
 
 # the Cosm API-Key for authentication (generated on the Cosm website)
@@ -261,7 +261,7 @@ sql:url=
 # the base script which is written to the newly created Calendar-Events by
 # the GCal-based presence simulation. It must contain two format markers '%s'.
 # The first marker represents the Item to send the command to and the second
-# represents the State (optional, defaults to 
+# represents the State (optional, defaults to
 # '> if (PresenceSimulation.state == ON) sendCommand(%s,%s)')
 #gcal-persistence:executescript=
 
@@ -283,12 +283,12 @@ sql:url=
 
 ################################ KNX Binding ##########################################
 #
-# KNX gateway IP address 
+# KNX gateway IP address
 # (optional, if serialPort or connection type 'ROUTER' is specified)
-knx:ip=192.168.0.10
+knx:ip={{ knx_ip }}
 
 # KNX IP connection type. Could be either TUNNEL or ROUTER (optional, defaults to TUNNEL)
-# Note: If you cannot get the ROUTER mode working (even if it claims it is connected), 
+# Note: If you cannot get the ROUTER mode working (even if it claims it is connected),
 # use TUNNEL mode instead with setting both the ip of the KNX gateway and the localIp.
 #knx:type=
 
@@ -296,7 +296,7 @@ knx:ip=192.168.0.10
 #knx:port=
 
 # Local endpoint to specify the multicast interface, no port is used (optional)
-knx:localIp=192.168.0.99
+knx:localIp={{ local_ip }}
 
 # Serial port of FT1.2 KNX interface (ignored, if ip is specified)
 # Valid values are e.g. COM1 for Windows and /dev/ttyS0 or /dev/ttyUSB0 for Linux
@@ -306,7 +306,7 @@ knx:localIp=192.168.0.99
 # initialization (optional, defaults to 50)
 knx:pause=100
 
-# Timeout in milliseconds to wait for a response from the KNX bus (optional, 
+# Timeout in milliseconds to wait for a response from the KNX bus (optional,
 # defaults to 10000)
 #knx:timeout
 
@@ -323,14 +323,14 @@ knx:pause=100
 
 ############################# Bluetooth Binding #######################################
 #
-# Bluetooth refresh rate in seconds 
+# Bluetooth refresh rate in seconds
 # (defines, how often a new device detection scan is performed)
 #bluetooth:refresh=30
 
 ############################## OneWire Binding ########################################
 #
-# OwServer IP address 
-onewire:ip=192.168.0.6
+# OwServer IP address
+onewire:ip={{ onewire_ip }}
 
 # OwServer Port (optional, defaults to 4304)
 onewire:port=4304
@@ -338,7 +338,7 @@ onewire:port=4304
 # refresh interval in milliseconds (optional, defaults to 60000)
 onewire:refresh=60000
 
-# the retry count in case no valid value was returned 
+# the retry count in case no valid value was returned
 # upon read (optional, defaults to 3)
 #onewire:retry=5
 
@@ -368,7 +368,7 @@ onewire:refresh=60000
 # http:<id1>.url=
 # http:<id1>.updateInterval=
 
-# configuration of the second cache item  
+# configuration of the second cache item
 # http:<id2>.url=
 # http:<id2>.updateInterval=
 
@@ -402,7 +402,7 @@ ntp:hostname=ptbtime1.ptb.de
 
 ################################ MPD Binding ##########################################
 #
-# Host and port of the first MPD to control 
+# Host and port of the first MPD to control
 #mpd:wohnzimmer.host=192.168.0.8
 #mpd:wohnzimmer.port=6600
 
@@ -410,7 +410,7 @@ ntp:hostname=ptbtime1.ptb.de
 # indicate that no authentication is required)
 # mpd:<player-id-1>.password=
 
-# Host and port of the second MPD to control 
+# Host and port of the second MPD to control
 # mpd:<player-id-2>.host=
 # mpd:<player-id-2>.port=
 
@@ -420,11 +420,11 @@ ntp:hostname=ptbtime1.ptb.de
 
 ################################ VDR Binding ##########################################
 #
-# Host and port of the first VDR to control 
+# Host and port of the first VDR to control
 # vdr:<vdr-id-1>.host=
 # vdr:<vdr-id-1>.port=6419
 
-# Host and port of the second VDR to control 
+# Host and port of the second VDR to control
 # vdr:<vdr-id-2>.host=
 # vdr:<vdr-id-2>.port=6419
 
@@ -481,13 +481,13 @@ ntp:hostname=ptbtime1.ptb.de
 #plugwise:stick.port=
 
 # "circleplus" is reserved plug wise id
-#plugwise:circleplus.mac= 
+#plugwise:circleplus.mac=
 
 #plugwise:<plugwise-id-1>.mac=
 
 ############################### Modbus Binding ########################################
 #
-# sets refresh interval to Modbus polling service. 
+# sets refresh interval to Modbus polling service.
 # Value in milliseconds (optional, defaults to 200)
 #modbus:poll=
 
@@ -527,7 +527,7 @@ ntp:hostname=ptbtime1.ptb.de
 #hue:ip=
 
 # Default secret key for the pairing of the Philips Hue Bridge.
-# It has to be between 10-40 (alphanumeric) characters 
+# It has to be between 10-40 (alphanumeric) characters
 # This may be changed by the user for security reasons.
 hue:secret=openHABRuntime
 
@@ -538,12 +538,12 @@ hue:secret=openHABRuntime
 #rfxcom:serialPort=
 
 # Set mode command for controller (optional)
-# E.g. rfxcom:setMode=0D000000035300000C2F00000000 
+# E.g. rfxcom:setMode=0D000000035300000C2F00000000
 #rfxcom:setMode=
 
 ############################## Pulseaudio Binding #####################################
 #
-# PulseaudioServer IP address 
+# PulseaudioServer IP address
 #pulseaudio:Main.host=
 
 # PulseaudioServer Port (optional, defaults to 4712)
@@ -555,8 +555,8 @@ hue:secret=openHABRuntime
 #homematic:host=
 
 # Hostname / IP address for the callback server (optional, default is auto-discovery)
-# This is normally the IP / hostname of the local host 
-# (but not "localhost" or "127.0.0.1"). 
+# This is normally the IP / hostname of the local host
+# (but not "localhost" or "127.0.0.1").
 #homematic:callback.host=
 
 # Port number for the callback server. (optional, defaults to 9123)
@@ -567,11 +567,11 @@ hue:secret=openHABRuntime
 # refresh interval in milliseconds (optional, defaults to 900000ms, 15m)
 #koubachi:refresh
 
-# The URL of the Device list  (optional, defaults to 
+# The URL of the Device list  (optional, defaults to
 # 'https://api.koubachi.com/v2/user/smart_devices?user_credentials=%1$s&app_key=%2$s')
 #koubachi:deviceurl
 
-# The URL of the Plant list  (optional, defaults to 
+# The URL of the Plant list  (optional, defaults to
 # 'https://api.koubachi.com/v2/plants?user_credentials=%1$s&app_key=%2$s')
 #koubachi:planturl
 
@@ -583,30 +583,30 @@ hue:secret=openHABRuntime
 
 ################################ Sonos Binding ########################################
 #
-# Host and port of the first VDR to control 
+# Host and port of the first VDR to control
 #sonos:office.udn=RINCON_000XXXXXXXXX01400
 #sonos:living.udn=RINCON_000YYYYYYYYY01400
 
 ################################ SAMSUNG TV Binding ###################################
 #
-# Host of the first TV to control 
+# Host of the first TV to control
 # samsungtv:<TVid1>.host=
 # Port of the TV to control (optional, defaults to 55000)
 # samsungtv:<TVid1>.port=
 
-# Host of the second TV to control 
+# Host of the second TV to control
 # samsungtv:<TVid2>.host=
 # Port of the TV to control (optional, defaults to 55000)
 # samsungtv:<TVid2>.port=
 
 ################################# Onkyo  Binding ######################################
 #
-# Host of the first Onkyo device to control 
+# Host of the first Onkyo device to control
 # onkyo:<OnkyoId1>.host=
 # Port of the Onkyo to control (optional, defaults to 60128)
 # onkyo:<OnkyoId1>.port=
 
-# Host of the second Onkyo device to control 
+# Host of the second Onkyo device to control
 # onkyo:<OnkyoId2>.host=
 # Port of the Onkyo to control (optional, defaults to 60128)
 # onkyo:<OnkyoId2>.port=
@@ -616,7 +616,7 @@ hue:secret=openHABRuntime
 # The type of OpenSprinkler connection to make (optional, defaults to 'gpio').
 # There are two valid options:
 #
-# gpio: this mode is only applicable when running OpenHAB on a Raspberry Pi, which 
+# gpio: this mode is only applicable when running OpenHAB on a Raspberry Pi, which
 #       is connected directly to an OpenSprinkler Pi. In this mode the communication
 #       is directly over the GPIO pins of the Raspberry Pi
 # http: this mode is applicable to both OpenSprinkler and OpenSprinkler Pi, as long as
@@ -635,13 +635,13 @@ hue:secret=openHABRuntime
 
 ############################ Epson Projector Binding ##################################
 #
-# Serial port or Host and port of the first Epson projector to control 
+# Serial port or Host and port of the first Epson projector to control
 # epsonprojector:<devId1>.serialPort=
 # epsonprojector:<devId1>.host=
 # Port of the Epson projector to control (optional, defaults to 60128)
 # epsonprojector:<devId1>.port=
 
-# Serial port or Host and port of the second Epson projector to control 
+# Serial port or Host and port of the second Epson projector to control
 # epsonprojector:<devId2>.serialPort=
 # epsonprojector:<devId2>.host=
 # Port of the Epson projector to control (optional, defaults to 60128)
@@ -657,10 +657,10 @@ hue:secret=openHABRuntime
 
 ############################### EDS OWSever Binding ###################################
 #
-# Host of the first OWServer device to control 
+# Host of the first OWServer device to control
 # owserver:<serverId1>.host=
 
-# Host of the second OWServer device to control 
+# Host of the second OWServer device to control
 # owserver:<serverId2>.host=
 
 ################################ digitalSTROM Binding #################################
@@ -678,39 +678,39 @@ hue:secret=openHABRuntime
 #digitalstrom:loginToken=
 
 # to login with username and password; default user is dssadmin and default password
-# is dssadmin if you have loginToken and username with password the loginToken will 
+# is dssadmin if you have loginToken and username with password the loginToken will
 # be prefered by default
 #digitalstrom:user=
 #digitalstrom:password=
 
 ################################## Squeezebox Binding #################################
 #
-# Host of the first Squeezebox device to control 
+# Host of the first Squeezebox device to control
 #squeeze:<boxId1>.host=
-# Port of cli interface of the first Squeezebox device to control 
+# Port of cli interface of the first Squeezebox device to control
 # (optional, defaults to 9090)
 #squeeze:<boxId1>.cliport=
-# Webport interface of the first Squeezebox device to control (optional, 
+# Webport interface of the first Squeezebox device to control (optional,
 # defaults to 9000)
 #squeeze:<boxId1>.webport=
 
-# Host of the second Squeezebox device to control 
+# Host of the second Squeezebox device to control
 #squeeze:<boxId2>.host=
-# Port of cli interface of the second Squeezebox device to control (optional, 
+# Port of cli interface of the second Squeezebox device to control (optional,
 # defaults to 9090)
 #squeeze:<boxId2>.cliport=
-# Webport interface of the second Squeezebox device to control (optional, 
+# Webport interface of the second Squeezebox device to control (optional,
 # defaults to 9000)
 #squeeze:<boxId2>.webport=
 
 ################################### Milight Binding ###################################
 #
-# Host of the first Milight bridge to control 
+# Host of the first Milight bridge to control
 #milight:<MilightId1>.host=
 # Port of the bridge to control (optional, defaults to 50000)
 #milight:<MilightId1>.port=
 #
-# Host of the second Milight bridge to control 
+# Host of the second Milight bridge to control
 #milight:<MilightId2>.host=
 # Port of the bridge to control (optional, defaults to 50000)
 #milight:<MilightId2>.port=
@@ -726,14 +726,14 @@ hue:secret=openHABRuntime
 
 ################################### PiFace Binding ####################################
 #
-# Host of the first Raspberry PI carrying a PiFace board 
+# Host of the first Raspberry PI carrying a PiFace board
 #piface:<piface-id1>.host=
 # Port of the Piface listener of the first RasPi (optional, defaults to 15432)
 #piface:<piface-id1>.listenerport=
 # Port of the Piface monitor of the first RasPi (optional, defaults to 15433)
 #piface:<piface-id1>.monitorport=
 
-# Host of the second Raspberry PI carrying a PiFace board 
+# Host of the second Raspberry PI carrying a PiFace board
 #piface:<piface-id2>.host=
 # Port of the Piface listener of the second RasPi (optional, defaults to 15432)
 #piface:<piface-id2>.listenerport=
@@ -759,14 +759,14 @@ hue:secret=openHABRuntime
 # Username of the first AHA host. User must have HomeAuto permissions.
 # (optional for local networks, required for remote access)
 #fritzaha:<hostID1>.username=
-# Password of the first AHA host's web interface. 
+# Password of the first AHA host's web interface.
 # (optional, but required if password is set in host)
 #fritzaha:<hostID1>.password=
 
 ############################## Tinkerforge  Binding ###################################
 #
-# IP addresses / Hostnames  of the hosts running the brickd (optional port 
-# separated by a colon, defaults to 4223) 
+# IP addresses / Hostnames  of the hosts running the brickd (optional port
+# separated by a colon, defaults to 4223)
 # tinkerforge:hosts=
 
 ######################## NIBE HEAT PUMP Binding #######################################
@@ -794,11 +794,11 @@ hue:secret=openHABRuntime
 # /dev/ttyUSB0 for Linux
 #nikobus:serial.port=
 
-# Directory path where the command cache file should be created.  
+# Directory path where the command cache file should be created.
 # Optional. Defaults to the users' home directory.
 #nikobus:cache.location=
 
-# Perform a module status query every x seconds (optional, defaults to 600 (10 minutes)). 
+# Perform a module status query every x seconds (optional, defaults to 600 (10 minutes)).
 #nikobus:refresh=
 
 ################################# EnOcean Binding #####################################
@@ -825,8 +825,8 @@ hue:secret=openHABRuntime
 # Optional. Password to authenticate with the broker.
 #mqtt:<broker>.pwd=<password>
 
-# Optional. Set the quality of service level for sending messages to this broker. 
-# Possible values are 0 (Deliver at most once),1 (Deliver at least once) or 2 
+# Optional. Set the quality of service level for sending messages to this broker.
+# Possible values are 0 (Deliver at most once),1 (Deliver at least once) or 2
 # (Deliver exactly once). Defaults to 0.
 #mqtt:<broker>.qos=<qos>
 
