@@ -34,7 +34,7 @@
       - rollershutter.rules
       - wlan.rules
     knx_ip: 192.168.0.10
-    local_ip: 192.168.0.98
+    local_ip: 192.168.0.99
     onewire_ip: 192.168.0.6
     dependencies:
       - apt
