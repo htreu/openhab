@@ -1,7 +1,7 @@
 rule cron_Rollershutter_Up
 when
-	// 07:45
-	Time cron "0 45 7 * * ?"
+	// 07:30
+	Time cron "0 30 7 * * ?"
 then
 	sendCommand(Shutter_GF_Kitchen, UP)
 	Thread::sleep(500)
@@ -16,8 +16,8 @@ end
 
 rule cron_Rollershutter_Down_1
 when
-	// 17:00
-	Time cron "0 0 17 * * ?"
+	// 18:00
+	Time cron "0 0 18 * * ?"
 then
 	sendCommand(Shutter_GF_WZ_links, DOWN)
 	Thread::sleep(500)
@@ -26,8 +26,8 @@ end
 
 rule cron_Rollershutter_Down_2
 when
-	// 17:30
-	Time cron "0 30 17 * * ?"
+	// 18:15
+	Time cron "0 15 18 * * ?"
 then
 	sendCommand(Shutter_GF_Kitchen, DOWN)
 	Thread::sleep(500)
