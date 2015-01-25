@@ -1,31 +1,39 @@
 rule cron_HaustuerAussen_OnMorning
 when
-	// an: 05:45
-	Time cron "0 45 5 * * ?"
+    // an: 05:45
+    Time cron "0 45 5 * * ?"
 then
-	sendCommand(Lights_Outside_Frontdoor, ON)
+    sendCommand(Lights_Outside_Frontdoor, ON)
 end
 
 rule cron_HaustuerAussen_OffMorning
 when
-        // aus: 08:15
-        Time cron "0 15 8 * * ?"
+    // aus: 07:30
+    Time cron "0 30 7 * * ?"
 then
-        sendCommand(Lights_Outside_Frontdoor, OFF)
+    sendCommand(Lights_Outside_Frontdoor, OFF)
 end
 
 rule cron_HaustuerAussen_OnEvening
 when
-	// an: 17:00
-	Time cron "0 30 16 * * ?"
+    // an: 18:30
+    Time cron "0 30 18 * * ?"
 then
-	sendCommand(Lights_Outside_Frontdoor, ON)
+    sendCommand(Lights_Outside_Frontdoor, ON)
 end
 
 rule cron_HaustuerAussen_OffEvening
 when
-        // aus: 22:30
-        Time cron "0 30 22 * * ?"
+    // aus: 22:30
+    Time cron "0 30 22 * * ?"
 then
-        sendCommand(Lights_Outside_Frontdoor, OFF)
+    sendCommand(Lights_Outside_Frontdoor, OFF)
 end
+
+rule tuerklingel
+when
+    Item Lights_GF_Tuerklingel changed
+then
+   sendNotification("henning.treu@codecentric.de", "Haustür")
+end
+
