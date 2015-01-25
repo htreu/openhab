@@ -69,15 +69,15 @@
     - name: install openhab.cfg
       template: src=../files/openhab/configurations/openhab.cfg.j2 dest={{ openhab_home }}/configurations/openhab.cfg owner=vagrant group=vagrant
     - name: install openhab items
-      template: src=../files/openhab/configurations/items/{{ item }} dest={{ openhab_home }}/configurations/items/{{ item }}
+      copy: src=../files/openhab/configurations/items/{{ item }} dest={{ openhab_home }}/configurations/items/{{ item }}
       with_items: openhab_items
     - name: install openhab rules
-      template: src=../files/openhab/configurations/rules/{{ item }} dest={{ openhab_home }}/configurations/rules/{{ item }}
+      copy: src=../files/openhab/configurations/rules/{{ item }} dest={{ openhab_home }}/configurations/rules/{{ item }}
       with_items: openhab_rules
     - name: install openhab sitemaps
-      template: src=../files/openhab/configurations/sitemaps/home.sitemap dest={{ openhab_home }}/configurations/sitemaps/
+      copy: src=../files/openhab/configurations/sitemaps/home.sitemap dest={{ openhab_home }}/configurations/sitemaps/
     - name: install openhab persistence
-      template: src=../files/openhab/configurations/persistence/rrd4j.persist dest={{ openhab_home }}/configurations/persistence/
+      copy: src=../files/openhab/configurations/persistence/rrd4j.persist dest={{ openhab_home }}/configurations/persistence/
     - name: install secret
       copy: content={{ secret }} dest={{ openhab_home }}/webapps/static/secret
     - name: install uuid
