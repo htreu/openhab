@@ -1,38 +1,38 @@
 rule cron_Rollershutter_Up
 when
-	// 07:30
-	Time cron "0 30 7 * * ?"
+    // 07:30
+    Time cron "0 30 7 * * ?"
 then
-	sendCommand(Shutter_GF_Kitchen, UP)
-	Thread::sleep(500)
-	sendCommand(Shutter_GF_Essen, UP)
-	Thread::sleep(500)
-	sendCommand(Shutter_GF_WZ_links, UP)
-	Thread::sleep(500)
-	sendCommand(Shutter_GF_WZ_rechts, UP)
-	Thread::sleep(500)
-	sendCommand(Shutter_FF_Bath, UP)
+    sendCommand(Shutter_GF_Kitchen, UP)
+    Thread::sleep(500)
+    sendCommand(Shutter_GF_Essen, UP)
+    Thread::sleep(500)
+    sendCommand(Shutter_GF_WZ_links, UP)
+    Thread::sleep(500)
+    sendCommand(Shutter_GF_WZ_rechts, UP)
+    Thread::sleep(500)
+    sendCommand(Shutter_FF_Bath, UP)
 end
 
 rule cron_Rollershutter_Down_1
 when
-	// 18:00
-	Time cron "0 0 18 * * ?"
+    // 19:15
+    Time cron "0 15 19 * * ?"
 then
-	sendCommand(Shutter_GF_WZ_links, DOWN)
-	Thread::sleep(500)
-	sendCommand(Shutter_GF_WZ_rechts, DOWN)
+    sendCommand(Shutter_GF_WZ_links, DOWN)
+    Thread::sleep(500)
+    sendCommand(Shutter_GF_WZ_rechts, DOWN)
 end
 
 rule cron_Rollershutter_Down_2
 when
-	// 18:15
-	Time cron "0 15 18 * * ?"
+    // 19:30
+    Time cron "0 30 19 * * ?"
 then
-	sendCommand(Shutter_GF_Kitchen, DOWN)
-	Thread::sleep(500)
-	sendCommand(Shutter_GF_Essen, DOWN)
-	Thread::sleep(500)
-	sendCommand(Shutter_FF_Bath, DOWN)
+    sendCommand(Shutter_GF_Kitchen, DOWN)
+    Thread::sleep(500)
+    sendCommand(Shutter_GF_Essen, DOWN)
+    Thread::sleep(500)
+    sendCommand(Shutter_FF_Bath, DOWN)
 end
 
