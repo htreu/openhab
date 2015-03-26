@@ -1,0 +1,45 @@
+- name: apt install dependencies
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
+  sudo: yes
+  with_items: dependencies
+
+- name: create java home
+  file: path={{ java_home }} state=directory owner=vagrant group=vagrant
+  sudo: yes
+- name: install jdk
+  command: tar -xvo -f {{ jdk_tar }} -C {{ java_home }} --strip-components=1 creates={{ java_home }}/bin
+
+- name: create openhab home
+  file: path={{ openhab_home }} state=directory owner=vagrant group=vagrant
+  sudo: yes
+- name: install openhab runtime
+  command: unzip {{ openhab_runtime_zip }} -d {{ openhab_home }} creates={{ openhab_home }}/webapps
+- name: install openhab addons
+  command: unzip {{ openhab_addons_zip }} {{ item }} -d {{ openhab_home }}/addons creates={{ openhab_home }}/addons/{{ item }}
+  with_items: openhab_addons
+- name: install myopenhab bundle
+  get_url: url={{ openhab_myopenhab_url }} dest={{ openhab_home }}/addons
+- name: install openhab init script
+  command: cp {{ openhab_init_script }} /etc/init.d/openhab creates=/etc/init.d/openhab
+  sudo: yes
+
+- name: install openhab.cfg
+  template: src=../files/openhab/configurations/openhab.cfg.j2 dest={{ openhab_home }}/configurations/openhab.cfg owner=vagrant group=vagrant
+- name: install openhab items
+  copy: src=../files/openhab/configurations/items/{{ item }} dest={{ openhab_home }}/configurations/items/{{ item }}
+  with_items: openhab_items
+- name: install openhab rules
+  copy: src=../files/openhab/configurations/rules/{{ item }} dest={{ openhab_home }}/configurations/rules/{{ item }}
+  with_items: openhab_rules
+- name: install openhab sitemaps
+  copy: src=../files/openhab/configurations/sitemaps/home.sitemap dest={{ openhab_home }}/configurations/sitemaps/
+- name: install openhab persistence
+  copy: src=../files/openhab/configurations/persistence/rrd4j.persist dest={{ openhab_home }}/configurations/persistence/
+- name: install secret
+  copy: content={{ secret }} dest={{ openhab_home }}/webapps/static/secret
+- name: install uuid
+  copy: content={{ uuid }} dest={{ openhab_home }}/webapps/static/uuid
+
+- name: start openhab
+  service: name=openhab enabled=yes state=started
+  sudo: yes

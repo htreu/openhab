@@ -1,0 +1,23 @@
+---
+vagrant_home: /home/vagrant
+url: https://github.com/knxd/knxd
+knxd_home: '{{ vagrant_home}}/knxd'
+pthsem_home: '{{ vagrant_home}}/pthsem'
+pthsem_tar: '{{ extern_base }}/pthsem_2.0.8.tar.gz'
+dependencies:
+  - apt
+  - build-essential
+  - libtool
+  - automake
+  - pkg-config
+  - cdbs
+  - git
+  - libusb-1.0-0-dev
+libpthsem_libs:
+  - libpthsem20_2.0.8_i386.deb
+  - libpthsem-dev_2.0.8_i386.deb
+  - libpthsem-compat_2.0.8_i386.deb
+  - libpthsem-dbg_2.0.8_i386.deb
+knxd_libs:
+  - knxd-tools_0.9.0-1_i386.deb
+  - knxd_0.9.0-1_i386.deb

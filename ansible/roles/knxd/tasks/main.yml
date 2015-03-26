@@ -1,0 +1,31 @@
+---
+- name: apt install dependencies
+  apt: name={{ item }} state=present update_cache=yes cache_valid_time=86400
+  sudo: yes
+  with_items: dependencies
+
+- name: create pthsem home
+  file: path={{ pthsem_home }} state=directory owner=vagrant group=vagrant
+  sudo: yes
+- name: untar pthsem
+  command: tar -xvo -f {{ pthsem_tar }} -C {{ pthsem_home }} --strip-components=1 creates={{ pthsem_home }}/README
+- name: build pthsem
+  command: dpkg-buildpackage chdir={{ pthsem_home }} creates={{ vagrant_home }}/libpthsem20_2.0.8_i386.deb
+- name: install pthsem
+  command: dpkg -i {{ item }} chdir={{ vagrant_home }}
+  sudo: yes
+  with_items: libpthsem_libs
+
+- name: create knxd home
+  file: path='{{ knxd_home }}' state=directory owner=vagrant group=vagrant
+- name: checkout knxd
+  git: repo={{ url }} dest={{ knxd_home }}
+  register: checkout_dotfiles_result
+- name: bootstrap knxd
+  command: ./bootstrap.sh chdir={{ knxd_home }}
+- name: build knxd
+  command: dpkg-buildpackage -b chdir={{ knxd_home }}
+- name: install knxd
+  command: dpkg -i {{ item }} chdir={{ vagrant_home }}
+  sudo: yes
+  with_items: knxd_libs

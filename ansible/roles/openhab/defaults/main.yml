@@ -1,0 +1,37 @@
+---
+java_home: /opt/java
+openhab_home: /opt/openhab
+jdk_tar: "{{ extern_base }}/jdk-8u25-linux-i586.gz"
+openhab_version: 1.6.1
+openhab_runtime_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-runtime.zip"
+openhab_addons_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-addons.zip"
+openhab_init_script: "{{ files_base }}/openhab/openhab.init"
+openhab_addons:
+  - org.openhab.binding.knx-{{ openhab_version }}.jar
+  - org.openhab.action.mail-{{ openhab_version }}.jar
+  - org.openhab.binding.onewire-{{ openhab_version }}.jar
+  - org.openhab.action.xmpp-{{ openhab_version }}.jar
+  - org.openhab.binding.http-{{ openhab_version }}.jar
+  - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
+openhab_myopenhab_url: https://my.openhab.org/downloads/org.openhab.io.myopenhab-1.4.0-SNAPSHOT.jar
+openhab_items:
+  - bluetooth.items
+  - eib.items
+  - http.items
+  - onewire.items
+  - sunext.items
+openhab_rules:
+  - HaustuerAussen.rules
+  - gf_lights.rules
+  - music.rules
+  - sunext.rules
+  - Zirkulation.rules
+  - kellerlicht.rules
+  - rollershutter.rules
+  - wlan.rules
+knx_ip: 192.168.0.10
+local_ip: 192.168.0.99
+onewire_ip: 192.168.0.6
+dependencies:
+  - apt
+  - unzip
