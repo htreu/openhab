@@ -29,3 +29,6 @@
   command: dpkg -i {{ item }} chdir={{ vagrant_home }}
   sudo: yes
   with_items: knxd_libs
+- name: install knxd default to /etc/default
+  template: src=knxd.default.j2 dest=/etc/default/knxd
+  sudo: yes
