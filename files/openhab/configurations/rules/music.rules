@@ -2,60 +2,67 @@ rule radio
 when
         Item Radio received command
 then
-	switch receivedCommand {
+    switch receivedCommand {
                 case 0 : {
-			sendHttpPostRequest(
-				"http://192.168.0.15/jsonrpc",
-				"application/json",
-				'{"jsonrpc":"2.0","id":1,"method":"Player.Stop","params":{"playerid":0}}')
-		}
-		case 1 : {
-			sendHttpPostRequest(
-				"http://192.168.0.15/jsonrpc",
-				"application/json",
-				'{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/1live.m3u"}}}')
-                	sendCommand(Lights_GF_Hifi, ON)
-		}
-		case 2 : {
-			sendHttpPostRequest(
-				"http://192.168.0.15/jsonrpc",
-				"application/json",
-				'{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/wdr2-rheinland.m3u"}}}')
-        		sendCommand(Lights_GF_Hifi, ON)
-		}
-		case 3 : {
+            sendHttpPostRequest(
+                "http://192.168.0.15/jsonrpc",
+                "application/json",
+                '{"jsonrpc":"2.0","id":1,"method":"Player.Stop","params":{"playerid":0}}')
+        }
+        case 1 : {
+            sendHttpPostRequest(
+                "http://192.168.0.15/jsonrpc",
+                "application/json",
+                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/1live.m3u"}}}')
+                    sendCommand(Lights_GF_Hifi, ON)
+        }
+        case 2 : {
+            sendHttpPostRequest(
+                "http://192.168.0.15/jsonrpc",
+                "application/json",
+                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/wdr2-rheinland.m3u"}}}')
+                sendCommand(Lights_GF_Hifi, ON)
+        }
+        case 3 : {
                         sendHttpPostRequest(
                                 "http://192.168.0.15/jsonrpc",
                                 "application/json",
                                 '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/kiraka.m3u"}}}')
                         sendCommand(Lights_GF_Hifi, ON)
                 }
-		case 4 : {
+        case 4 : {
                         sendHttpPostRequest(
                                 "http://192.168.0.15/jsonrpc",
                                 "application/json",
                                 '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/news894.m3u"}}}')
                         sendCommand(Lights_GF_Hifi, ON)
                 }
-	}
+        case 5 : {
+                        sendHttpPostRequest(
+                                "http://192.168.0.15/jsonrpc",
+                                "application/json",
+                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/bayern3.m3u"}}}')
+                        sendCommand(Lights_GF_Hifi, ON)
+                }
+    }
 end
 
 rule hifi_off
 when
-	Item Lights_GF_Hifi received command
+    Item Lights_GF_Hifi received command
 then
-	if (receivedCommand == OFF) {
-		sendCommand(Radio, 0)
-	}
+    if (receivedCommand == OFF) {
+        sendCommand(Radio, 0)
+    }
 end
 
 rule switch_gf_radio
 when
-	Item Switch_GF_Radio received command
+    Item Switch_GF_Radio received command
 then
-	if (receivedCommand == ON) {
-		sendCommand(Radio, 2)
-	} else if (receivedCommand == OFF) {
-		sendCommand(Lights_GF_Hifi, OFF)
-	}
+    if (receivedCommand == ON) {
+        sendCommand(Radio, 2)
+    } else if (receivedCommand == OFF) {
+        sendCommand(Lights_GF_Hifi, OFF)
+    }
 end

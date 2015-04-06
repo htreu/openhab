@@ -1,33 +1,33 @@
 Group All
-Group gGF 		(All)
-Group gFF 		(All)
-Group gC 		(All)
-Group Outdoor 	(All)
-Group Shutters 	(All)
-Group Weather 	(All)
-Group Status 	(All)
+Group gGF       (All)
+Group gFF       (All)
+Group gC        (All)
+Group Outdoor   (All)
+Group Shutters  (All)
+Group Weather   (All)
+Group Status    (All)
 
-Group GF_Lights		"Licht Erdgeschoss"  <groundfloor>	(gGF)
-Group GF_Living 	"Wohnzimmer" 	     <video> 		(gGF, GF_Lights)
-Group GF_Kitchen 	"Küche" 		     <kitchen> 		(gGF, GF_Lights)
-Group GF_Toilet 	"Gästebad" 		     <bath> 		(gGF, GF_Lights)
-Group GF_Shutter	"Rolläden"			 				(gGF)
-Group GF_Corridor 	"Flur" 		         <corridor> 	(gGF, GF_Lights)
-Group GF_Terrace	"Terasse" 			 <terrace>		(gGF, GF_Lights, Outdoor)
+Group GF_Lights     "Licht Erdgeschoss"  <groundfloor>  (gGF)
+Group GF_Living     "Wohnzimmer"         <video>        (gGF, GF_Lights)
+Group GF_Kitchen    "Küche"             <kitchen>      (gGF, GF_Lights)
+Group GF_Toilet     "Gästebad"              <bath>         (gGF, GF_Lights)
+Group GF_Shutter    "Rolläden"                         (gGF)
+Group GF_Corridor   "Flur"               <corridor>     (gGF, GF_Lights)
+Group GF_Terrace    "Terasse"            <terrace>      (gGF, GF_Lights, Outdoor)
 Group GF_All_OFF    "Erdgeschoss aus" /* Dummy Gruppe, alle Lampen im Erdgeschoss AUS.*/
 
-Group FF_Lights		"Licht Obergeschoss" <firstfloor>	(gFF)
-Group FF_Bath 		"Badezimmer" 		 <bath> 		(gFF)
-Group FF_Child 		"Kinderzimmer"		 <kids> 		(gFF)
-Group FF_Bed 		"Schlafzimmer" 		 <bedroom>		(gFF)
-Group FF_Shutter	"Rolläden"			 				(gFF)
-Group FF_Corridor 	"Flur" 				 <corridor> 	(gFF)
+Group FF_Lights     "Licht Obergeschoss" <firstfloor>   (gFF)
+Group FF_Bath       "Badezimmer"         <bath>         (gFF)
+Group FF_Child      "Kinderzimmer"       <kids>         (gFF)
+Group FF_Bed        "Schlafzimmer"       <bedroom>      (gFF)
+Group FF_Shutter    "Rolläden"                         (gFF)
+Group FF_Corridor   "Flur"               <corridor>     (gFF)
 Group FF_All_OFF    "Obergeschoss aus" /* Dummy Gruppe, alle Lampen im Obergeschoss AUS.*/
 
 
 /* Date */
-/* 0/7/100	Zeitversand EIB-Gruppenadresse Datum	11.001 */
-/* 0/7/101	Zeitversand EIB-Gruppenadresse Uhrzeit	10.001 */
+/* 0/7/100  Zeitversand EIB-Gruppenadresse Datum    11.001 */
+/* 0/7/101  Zeitversand EIB-Gruppenadresse Uhrzeit  10.001 */
 
 /* Lights */
 Switch Lights_BASE_Keller "Keller Flur"                   (gC, Lights) { knx="1/1/1+<11/1/1"  }
@@ -36,7 +36,7 @@ Switch Lights_BASE_Zirkulationspumpe "Zirkulationspumpe"  (Lights) { knx="1/3/1+
 Switch Lights_GF_Router "Router"                          (Lights) { knx="2/3/1+<12/3/1"  }
 Switch Lights_GF_Tuerklingel "Türklingel"                 (Lights) { knx="2/4/0" }
 
-Switch Lights_GF_All "Licht EG"                           (GF_Lights, Lights) { knx="2/0/1"  } 
+Switch Lights_GF_All "Licht EG"                           (GF_Lights, Lights) { knx="2/0/1"  }
 Switch Lights_GF_Kueche_Unterschrank "Küche Unterschrank" (GF_Lights, GF_Kitchen, Lights, GF_All_OFF) { knx="2/1/21+<12/1/21" }
 Switch Lights_GF_Kueche_Decke "Küche Decke"               (GF_Lights, GF_Kitchen, Lights, GF_All_OFF) { knx="2/1/14+<12/1/14" }
 Switch Lights_GF_Bad "Gäste WC"                           (GF_Lights, GF_Toilet, Lights, GF_All_OFF) { knx="2/1/12+<12/1/12" }
@@ -48,7 +48,7 @@ Switch Lights_GF_Essen "Essecke"                          (GF_Lights, GF_Living,
 
 /* Radio */
 Switch Switch_GF_Radio { knx = "5/1/0" }
-Switch Lights_GF_Hifi "Verstärker" <socket>  (GF_Living, GF_All_OFF)	{ knx="2/1/20+<12/1/20" }
+Switch Lights_GF_Hifi "Verstärker" <socket>  (GF_Living, GF_All_OFF)   { knx="2/1/20+<12/1/20" }
 Number Radio "Radio" (Musik)
 
 Switch Lights_Outside_Frontdoor "Eingang aussen"          (Outdoor) { knx="2/1/8+<12/1/8" }

@@ -1,24 +1,21 @@
+Group Sun   (All)
 
-Group Sun 	(All)
+Switch Sun_Month                        "Month"                 <none>  (Sun)
+Switch Sun_Day                          "Day"                   <none>  (Sun)
+Switch Sun_Hour                         "Hour"                  <none>  (Sun)
+Switch Sun_Minute                       "Minute"                <none>  (Sun)
 
-Switch Sun_Month 						"Month" 				<none> 	(Sun)
-Switch Sun_Day 							"Day" 					<none> 	(Sun)
-Switch Sun_Hour 						"Hour" 					<none> 	(Sun)
-Switch Sun_Minute 						"Minute" 				<none> 	(Sun)
+Switch Sun_DawnTwilight_Solar           "Solar"                 <none>  (Sun) // height < 0
+Switch Sun_DawnTwilight_Civil           "Civil"                 <none>  (Sun) // height < 6
+Switch Sun_DawnTwilight_Nautical        "Nautical"              <none>  (Sun) // height < 12
+Switch Sun_DawnTwilight_Astronomical    "Astronomical"          <none>  (Sun) // height < 18
 
-Switch Sun_DawnTwilight_Solar 			"Solar" 				<none> 	(Sun) // height < 0
-Switch Sun_DawnTwilight_Civil 			"Civil" 				<none> 	(Sun) // height < 6
-Switch Sun_DawnTwilight_Nautical 		"Nautical" 				<none> 	(Sun) // height < 12
-Switch Sun_DawnTwilight_Astronomical 	"Astronomical" 			<none> 	(Sun) // height < 18
+String Sunrise_Time                     "Sunrise [%s]"          <none>  (Sun)
+String Sunset_Time                      "Sunset [%s]"           <none>  (Sun)
+Number Sun_Azimut                       "Azimut [%.1f °]"      <none>  (Sun)
+Number Sun_Height                       "Sunheight [%.1f °]"   <none>  (Sun)
 
-
-String Sunrise_Time						"Sunrise [%s]" 			<none> 	(Sun)
-String Sunset_Time	 					"Sunset [%s]" 			<none> 	(Sun)
-Number Sun_Azimut 						"Azimut [%.1f °]" 		<none> 	(Sun)
-Number Sun_Height 						"Sunheight [%.1f °]" 	<none> 	(Sun)
-
-
-Switch Sun_Fasade_Illum_East 			"East sunny" 			<none> 	(Sun)
-Switch Sun_Fasade_Illum_South 			"South sunny" 			<none> 	(Sun)
-Switch Sun_Fasade_Illum_West 			"West sunny" 			<none> 	(Sun)
-Switch Sun_Fasade_Illum_North 			"North sunny" 			<none> 	(Sun)
+Switch Sun_Fasade_Illum_East            "East sunny"            <none>  (Sun)
+Switch Sun_Fasade_Illum_South           "South sunny"           <none>  (Sun)
+Switch Sun_Fasade_Illum_West            "West sunny"            <none>  (Sun)
+Switch Sun_Fasade_Illum_North           "North sunny"           <none>  (Sun)

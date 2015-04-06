@@ -32,7 +32,7 @@ end
 
 rule tuerklingel
 when
-    Item Lights_GF_Tuerklingel changed
+    Item Lights_GF_Tuerklingel received update
 then
    sendNotification("henning.treu@codecentric.de", "Haustür")
 end
