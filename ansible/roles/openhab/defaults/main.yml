@@ -7,6 +7,7 @@ openhab_runtime_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-runt
 openhab_addons_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-addons.zip"
 openhab_init_script: "{{ files_base }}/openhab/openhab.init"
 openhab_addons:
+  - org.openhab.binding.astro-{{ openhab_version }}.jar
   - org.openhab.binding.knx-{{ openhab_version }}.jar
   - org.openhab.action.mail-{{ openhab_version }}.jar
   - org.openhab.binding.onewire-{{ openhab_version }}.jar
@@ -20,6 +21,7 @@ openhab_items:
   - http.items
   - onewire.items
   - sunext.items
+  - astro.items
 openhab_rules:
   - HaustuerAussen.rules
   - gf_lights.rules
@@ -27,7 +29,7 @@ openhab_rules:
   - sunext.rules
   - Zirkulation.rules
   - kellerlicht.rules
-  - rollershutter.rules
+  - rollershutter_astro.rules
   - wlan.rules
 knxd_ip: 127.0.0.1
 local_ip: 192.168.0.98

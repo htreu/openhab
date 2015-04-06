@@ -41,7 +41,7 @@ then
                         sendHttpPostRequest(
                                 "http://192.168.0.15/jsonrpc",
                                 "application/json",
-                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/bayern3.m3u"}}}')
+                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/antenne.m3u"}}}')
                         sendCommand(Lights_GF_Hifi, ON)
                 }
     }
