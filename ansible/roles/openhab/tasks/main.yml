@@ -24,7 +24,7 @@
   sudo: yes
 
 - name: install openhab.cfg
-  template: src=../files/openhab/configurations/openhab.cfg.j2 dest={{ openhab_home }}/configurations/openhab.cfg owner=vagrant group=vagrant
+  template: src=openhab.cfg.j2 dest={{ openhab_home }}/configurations/openhab.cfg owner=vagrant group=vagrant
 - name: install openhab items
   copy: src=../files/openhab/configurations/items/{{ item }} dest={{ openhab_home }}/configurations/items/{{ item }}
   with_items: openhab_items

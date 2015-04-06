@@ -21,3 +21,4 @@ libpthsem_libs:
 knxd_libs:
   - knxd-tools_0.9.0-1_i386.deb
   - knxd_0.9.0-1_i386.deb
+knx_gateway: 192.168.0.10

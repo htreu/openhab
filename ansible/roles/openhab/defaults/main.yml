@@ -29,7 +29,7 @@ openhab_rules:
   - kellerlicht.rules
   - rollershutter.rules
   - wlan.rules
-knx_ip: 127.0.0.1
+knxd_ip: 127.0.0.1
 local_ip: 192.168.0.98
 onewire_ip: 192.168.0.6
 dependencies:
