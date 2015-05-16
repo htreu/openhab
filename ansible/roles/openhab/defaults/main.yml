@@ -14,6 +14,7 @@ openhab_addons:
   - org.openhab.action.xmpp-{{ openhab_version }}.jar
   - org.openhab.binding.http-{{ openhab_version }}.jar
   - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
+  - org.openhab.binding.pioneeravr-{{ openhab_version }}.jar
 openhab_myopenhab_url: https://my.openhab.org/downloads/org.openhab.io.myopenhab-1.4.0-SNAPSHOT.jar
 openhab_items:
   - bluetooth.items
@@ -22,6 +23,7 @@ openhab_items:
   - onewire.items
   - sunext.items
   - astro.items
+  - av.items
 openhab_rules:
   - HaustuerAussen.rules
   - gf_lights.rules
