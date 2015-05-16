@@ -1,4 +1,4 @@
-sitemap home label="Postweg 36"
+temap home label="Postweg 36"
 {
     Frame {
         Group item=gFF label="Obergeschoss" icon="firstfloor"
@@ -17,9 +17,10 @@ sitemap home label="Postweg 36"
             Text item=AV_Status label="Status: [%s]"
             Switch item=AV_Pwr
             Switch item=AV_Mute mappings=[ON="Mute", OFF="Un-Mute"]
-            Switch item=AV_Source  mappings=[5=TV, 4=DVD, 26=HMG, 15=DVR, 2=FM ]
+            Switch item=AV_Source  mappings=[5=TV, 1=CD, 45=Favorites, 15=DVR]
             Setpoint item=AV_Volume_perc
             Switch item=AV_HMG_Num  mappings=[1="WDR2", 2="1Live", 3="DLF" ]
+            Switch item=AV_Playback  mappings=[13="<", 30="Enter", 20="Stop", 12=">" ]
         }
     }
 
