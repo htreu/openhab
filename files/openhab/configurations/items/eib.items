@@ -49,7 +49,6 @@ Switch Lights_GF_Essen "Essecke"                          (GF_Lights, GF_Living,
 /* Radio */
 Switch Switch_GF_Radio { knx = "5/1/0" }
 Switch Lights_GF_Hifi "Verstärker" <socket>  (GF_Living, GF_All_OFF)   { knx="2/1/20+<12/1/20" }
-Number Radio "Radio" (Musik)
 
 Switch Lights_Outside_Frontdoor "Eingang aussen"          (Outdoor) { knx="2/1/8+<12/1/8" }
 Switch Lights_Outside_Essecke "Essecke Aussen"            (Outdoor, GF_Terrace) { knx="2/1/19+<12/1/19" }

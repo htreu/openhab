@@ -22,12 +22,6 @@ sitemap home label="Postweg 36"
             Switch item=AV_Playback  mappings=[13="<", 30="Enter", 20="Stop", 12=">" ]
         }
     }
-
-    Frame label="Radio" {
-        Switch item=Lights_GF_Hifi
-        Selection item=Radio mappings=[0=Aus, 1=1live, 2=WDR2, 3=KiRaKa, 4="News 89.4", 5="Antenne Bayern"]
-    }
-
     Frame label="Temperatur" {
         Chart item=Temperature_FF_Balkon period=W refresh=60000
     }
