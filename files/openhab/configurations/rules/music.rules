@@ -1,68 +1,26 @@
-rule radio
-when
-        Item Radio received command
-then
-    switch receivedCommand {
-                case 0 : {
-            sendHttpPostRequest(
-                "http://192.168.0.15/jsonrpc",
-                "application/json",
-                '{"jsonrpc":"2.0","id":1,"method":"Player.Stop","params":{"playerid":0}}')
-        }
-        case 1 : {
-            sendHttpPostRequest(
-                "http://192.168.0.15/jsonrpc",
-                "application/json",
-                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/1live.m3u"}}}')
-                    sendCommand(Lights_GF_Hifi, ON)
-        }
-        case 2 : {
-            sendHttpPostRequest(
-                "http://192.168.0.15/jsonrpc",
-                "application/json",
-                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/wdr2-rheinland.m3u"}}}')
-                sendCommand(Lights_GF_Hifi, ON)
-        }
-        case 3 : {
-                        sendHttpPostRequest(
-                                "http://192.168.0.15/jsonrpc",
-                                "application/json",
-                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/kiraka.m3u"}}}')
-                        sendCommand(Lights_GF_Hifi, ON)
-                }
-        case 4 : {
-                        sendHttpPostRequest(
-                                "http://192.168.0.15/jsonrpc",
-                                "application/json",
-                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/news894.m3u"}}}')
-                        sendCommand(Lights_GF_Hifi, ON)
-                }
-        case 5 : {
-                        sendHttpPostRequest(
-                                "http://192.168.0.15/jsonrpc",
-                                "application/json",
-                                '{"jsonrpc":"2.0","id":1,"method":"Player.Open","params":{"item": {"file": "playlists/antenne.m3u"}}}')
-                        sendCommand(Lights_GF_Hifi, ON)
-                }
-    }
-end
-
-rule hifi_off
-when
-    Item Lights_GF_Hifi received command
-then
-    if (receivedCommand == OFF) {
-        sendCommand(Radio, 0)
-    }
-end
-
-rule switch_gf_radio
+rule switch_gf_radio // triggers on the wall switch
 when
     Item Switch_GF_Radio received command
 then
     if (receivedCommand == ON) {
-        sendCommand(Radio, 2)
-    } else if (receivedCommand == OFF) {
-        sendCommand(Lights_GF_Hifi, OFF)
+        if (AV_Pwr.state == OFF) {
+            sendCommand(AV_Pwr, ON)      // switch on VSX-528
+        }
+        sendCommand(AV_Source, 45)   // select source Favorites
+        Thread::sleep(2000)
+        sendCommand(AV_Playback, 30) // send command "enter"
+    } else if (receivedCommand == OFF && AV_Pwr.state == ON) {
+        sendCommand(AV_Pwr, OFF)
+    }
+end
+
+rule AV_Pwr_ON // triggers when VSX-528 switches on/off
+when
+    Item AV_Pwr received command
+then
+    if (receivedCommand == ON && Switch_GF_Radio.state == OFF) {
+        sendCommand(Switch_GF_Radio, ON)
+    } else if (receivedCommand == OFF && Switch_GF_Radio.state == ON) {
+        sendCommand(Switch_GF_Radio, OFF)
     }
 end
