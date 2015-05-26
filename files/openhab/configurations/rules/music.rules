@@ -1,3 +1,8 @@
+import org.openhab.core.library.types.*
+import org.openhab.model.script.actions.Timer
+
+var Timer VolumeTimer = null
+
 rule switch_gf_radio // triggers on the wall switch
 when
     Item Switch_GF_Radio received command
@@ -6,9 +11,10 @@ then
         if (AV_Pwr.state == OFF) {
             sendCommand(AV_Pwr, ON)      // switch on VSX-528
         }
-        sendCommand(AV_Source, 45)   // select source Favorites
-        Thread::sleep(2000)
-        sendCommand(AV_Playback, 30) // send command "enter"
+        sendCommand(AV_Source, 45)      // select source Favorites
+        Thread::sleep(500)
+        sendCommand(AV_Playback, 30)        // send command "enter" to start playback
+        sendCommand(AV_Volume_Soll, 39)
     } else if (receivedCommand == OFF && AV_Pwr.state == ON) {
         sendCommand(AV_Pwr, OFF)
     }
@@ -22,5 +28,47 @@ then
         sendCommand(Switch_GF_Radio, ON)
     } else if (receivedCommand == OFF && Switch_GF_Radio.state == ON) {
         sendCommand(Switch_GF_Radio, OFF)
+    }
+end
+
+rule set_AV_Volume
+when
+    Item AV_Volume_Soll received command
+then
+    var int volume = (AV_Volume_Soll.state as DecimalType).intValue
+    if (volume % 2 == 0) {
+        sendCommand(AV_Volume_Soll, "" + (volume + 1))
+        return
+    }
+
+    logInfo("set_AV_Volume_Soll", "command received")
+    if (VolumeTimer == null) {
+        logInfo("set_AV_Volume_Soll", "volumeTimer is null")
+        VolumeTimer = createTimer(now.plusMillis(500)) [| 
+            logInfo("set_AV_Volume_Soll", "AV_Volume_Soll: " + AV_Volume_Soll.state)
+            logInfo("set_AV_Volume_Soll", "AV_Volume: " + AV_Volume.state)
+            if (AV_Volume.state < AV_Volume_Soll.state) {
+                logInfo("set_AV_Volume_Soll", "increase")
+	        sendCommand(AV_Volume, INCREASE)
+	    } else if (AV_Volume.state > AV_Volume_Soll.state) {
+                logInfo("set_AV_Volume_Soll", "decrease")
+                sendCommand(AV_Volume, DECREASE)
+	    }
+	    if (AV_Volume.state != AV_Volume_Soll.state) {
+                logInfo("set_AV_Volume_Soll", "reschedule inner")
+	        VolumeTimer.reschedule(now.plusMillis(500))
+	    } else {
+                logInfo("set_AV_Volume_Soll", "cancel")
+                VolumeTimer.cancel
+                VolumeTimer = null
+            }
+        ]
+    } else if (AV_Volume.state != AV_Volume_Soll.state) {
+        logInfo("set_AV_Volume_Soll", "reschedule outer")
+        VolumeTimer.reschedule(now.plusMillis(500))
+    } else {
+        logInfo("set_AV_Volume_Soll", "cancel")
+        VolumeTimer.cancel
+        VolumeTimer = null
     }
 end

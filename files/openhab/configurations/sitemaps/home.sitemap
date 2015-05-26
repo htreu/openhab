@@ -18,7 +18,8 @@ sitemap home label="Postweg 36"
             Switch item=AV_Pwr
             Switch item=AV_Mute mappings=[ON="Mute", OFF="Un-Mute"]
             Switch item=AV_Source  mappings=[5=TV, 4=DVD, 45=Favorites, 15=DVR, 2=FM ]
-            Setpoint item=AV_Volume_perc minValue=1 maxValue=99 step=1
+            Setpoint item=AV_Volume_Soll label="Volume Soll: [%s]"
+            Text item=AV_Volume label="Volume Ist: [%s]"
             Switch item=AV_Playback  mappings=[13="<", 30="Enter", 20="Stop", 12=">" ]
         }
     }
