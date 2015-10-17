@@ -1,0 +1,6 @@
+---
+- name: create OpenHAB-Homekit-Bridge home
+  file: path='{{ homekit_home }}' state=directory owner=vagrant group=vagrant
+  sudo: yes
+- name: checkout OpenHAB-Homekit-Bridge
+  git: repo={{ url }} dest={{ homekit_home }}
