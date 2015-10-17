@@ -1,0 +1,6 @@
+rule "system startup"
+when
+  System started
+then
+  executeCommandLine("/opt/OpenHAB-HomeKit-Bridge/npm start -- --server localhost:8080 --sitemap homekit");
+end
