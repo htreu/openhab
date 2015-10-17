@@ -32,7 +32,8 @@
   copy: src=../files/openhab/configurations/rules/{{ item }} dest={{ openhab_home }}/configurations/rules/{{ item }}
   with_items: openhab_rules
 - name: install openhab sitemaps
-  copy: src=../files/openhab/configurations/sitemaps/home.sitemap dest={{ openhab_home }}/configurations/sitemaps/
+  copy: src=../files/openhab/configurations/sitemaps/{{ item }} dest={{ openhab_home }}/configurations/sitemaps/{{ item }}
+  with_items: openhab_sitemaps
 - name: install openhab persistence
   copy: src=../files/openhab/configurations/persistence/rrd4j.persist dest={{ openhab_home }}/configurations/persistence/
 - name: install secret
