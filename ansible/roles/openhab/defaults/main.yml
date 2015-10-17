@@ -2,7 +2,7 @@
 java_home: /opt/java
 openhab_home: /opt/openhab
 jdk_tar: "{{ extern_base }}/jdk-8u25-linux-i586.gz"
-openhab_version: 1.6.1
+openhab_version: 1.7.1
 openhab_runtime_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-runtime.zip"
 openhab_addons_zip: "{{ extern_base }}/distribution-{{ openhab_version }}-addons.zip"
 openhab_init_script: "{{ files_base }}/openhab/openhab.init"
@@ -15,7 +15,7 @@ openhab_addons:
   - org.openhab.binding.http-{{ openhab_version }}.jar
   - org.openhab.persistence.rrd4j-{{ openhab_version }}.jar
   - org.openhab.binding.pioneeravr-{{ openhab_version }}.jar
-openhab_myopenhab_url: https://my.openhab.org/downloads/org.openhab.io.myopenhab-1.4.0-SNAPSHOT.jar
+openhab_myopenhab_url: https://bintray.com/artifact/download/openhab/mvn/org/openhab/io/org.openhab.io.myopenhab/1.7.0/org.openhab.io.myopenhab-1.7.0.jar
 openhab_items:
   - bluetooth.items
   - eib.items
@@ -33,9 +33,12 @@ openhab_rules:
   - kellerlicht.rules
   - rollershutter_astro.rules
   - wlan.rules
+  - homekit.rules
 knxd_ip: 127.0.0.1
 local_ip: 192.168.0.98
 onewire_ip: 192.168.0.6
+pioneer-vsx528_ip: 192.168.0.30
+pioneer-vsx528_port: 8102
 dependencies:
   - apt
   - unzip
