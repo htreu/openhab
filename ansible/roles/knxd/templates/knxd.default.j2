@@ -9,4 +9,4 @@
 # Additional options that are passed to the Daemon.
 START_KNXD=YES
 
-DAEMON_ARGS="ipt:{{ knx_gateway }} -t -D -R -T -S -i --daemon=/var/log/knxd.log"
+DAEMON_ARGS="ipt:{{ knx_gateway }} -t -D -R -T -S -i --no-tunnel-client-queuing --daemon=/var/log/knxd.log"

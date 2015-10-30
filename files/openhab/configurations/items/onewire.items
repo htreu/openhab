@@ -1,8 +1,8 @@
 Group Temperature
 
 /* Number Temperature_Base_Heizung_Therme "Heizung Therme [%.1f °C]" <temperature> (GF_Living, Temperature) { 28.D576AA030000 } */
-Number Temperature_Base_Heizung_Rueck "Heizung Rücklauf [%.1f °C]" <temperature>  (Status, Temperature) { onewire="28.8986AA030000#temperature" }
-Number Temperature_Base_Heizung_Vorlauf "Heizung Vorlauf [%.1f °C]" <temperature> (Status, Temperature) { onewire="28.F9C483030000#temperature" }
-Number Temperature_FF_Balkon "Balkon [%.1f °C]" <temperature> (Weather, gFF, Temperature) { onewire="28.A990AA030000#temperature" }
-Number Temperature_FF_Bad "Bad [%.1f °C]" <temperature>  (Weather, gFF, FF_Bath, Temperature) { onewire="28.DDFA83030000#temperature" }
-Number Temperature_GF_Wohnzimmer "Wohnzimmer [%.1f °C]" <temperature> (Weather, gGF, GF_Living, Temperature) { onewire="28.04F383030000#temperature" }
+Number Temperature_Base_Heizung_Rueck "Heizung Rücklauf  [.1f °C]"   <temperature> (Status, Temperature)                  { onewire="deviceId=28.8986AA030000;propertyName=temperature" }
+Number Temperature_Base_Heizung_Vorlauf "Heizung Vorlauf [%.1f °C]"  <temperature> (Status, Temperature)                  { onewire="deviceId=28.F9C483030000;propertyName=temperature" }
+Number Temperature_FF_Balkon "Balkon [%.1f °C]"                      <temperature> (Weather, gFF, Temperature)            { onewire="deviceId=28.A990AA030000;propertyName=temperature" }
+Number Temperature_FF_Bad "Bad [%.1f °C]"                            <temperature> (Weather, gFF, FF_Bath, Temperature)   { onewire="deviceId=28.DDFA83030000;propertyName=temperature" }
+Number Temperature_GF_Wohnzimmer "Wohnzimmer [%.1f °C]"              <temperature> (Weather, gGF, GF_Living, Temperature) { onewire="deviceId=28.04F383030000;propertyName=temperature" }
