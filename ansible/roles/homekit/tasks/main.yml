@@ -5,4 +5,4 @@
 - name: checkout OpenHAB-Homekit-Bridge
   git: repo={{ url }} dest={{ homekit_home }}
 - name: install OpenHAB-Homekit-Bridge
-  command: 'npm install' chdir={{ homekit_home }} creates={{ homekit_home }}/node_modules
+  command: npm install chdir={{ homekit_home }} creates={{ homekit_home }}/node_modules
