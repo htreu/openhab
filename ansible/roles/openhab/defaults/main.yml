@@ -38,7 +38,7 @@ openhab_sitemaps:
   - home.sitemap
   - homekit.sitemap
 knxd_ip: 127.0.0.1
-local_ip: 192.168.0.98
+local_ip: 192.168.0.99
 onewire_ip: 192.168.0.6
 pioneer_vsx528_ip: 192.168.0.30
 pioneer_vsx528_port: 8102
