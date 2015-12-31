@@ -8,7 +8,7 @@ then {
 
 rule "Haustuer Sonnenuntergang 30"
 when
-    Item Sunset_Event_30 received update ON
+    Item Sunset_Event received update ON
 then
     sendCommand(Lights_Outside_Frontdoor, ON)
 end

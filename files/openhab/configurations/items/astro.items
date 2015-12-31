@@ -4,6 +4,6 @@ Switch Sunrise_Event_30 { astro="planet=sun, type=rise, property=start, offset=3
 Switch Sunrise_Event_60 { astro="planet=sun, type=rise, property=start, offset=60" }
 
 Switch Sunset_Event    { astro="planet=sun, type=set,   property=start" }
-Switch Sunset_Event_15 { astro="planet=sun, type=set,   property=start, offset=-15" } // 15 Minuten vor Sonnenuntergang
-Switch Sunset_Event_30 { astro="planet=sun, type=set,   property=start, offset=-30" } // 30 Minuten vor Sonnenuntergang
-Switch Sunset_Event_60 { astro="planet=sun, type=set,   property=start, offset=-60" }
+Switch Sunset_Event_15 { astro="planet=sun, type=set,   property=start, offset=15" } // 15 Minuten nach Start Sonnenuntergang
+Switch Sunset_Event_30 { astro="planet=sun, type=set,   property=start, offset=30" } // 30 Minuten nach Start Sonnenuntergang
+Switch Sunset_Event_60 { astro="planet=sun, type=set,   property=start, offset=60" }
