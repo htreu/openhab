@@ -1,4 +1,4 @@
 /* String Uhrforum_Nixon "Nixon Angebote" { http="<[http://uhrforum.de/angebote/:3600000:REGEX(^.*?<a class.*?nixon.*?>(.*?)</a>.*$)]" } */
 /* String Uhrforum_Seiko "Seiko Angebote" { http="<[http://uhrforum.de/angebote/:3600000:REGEX(^.*?<a class.*?seiko.*?>(.*?)</a>.*$)]" } */
-Switch Radio_1Live "1-live" { http=">[*:GET:http://192.168.0.15/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22id%22:1,%22method%22:%22Player.Open%22,%22params%22:{%22item%22:%20{%22file%22:%20%22playlists/1live.strm%22}}}]" }
-Switch Radio_Off "Radio Aus" { http=">[*:GET:http://192.168.0.15/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22id%22:1,%22method%22:%22Player.Stop%22,%22params%22:{%22playerid%22:0}}]" }
+/* Switch Radio_1Live "1-live" { http=">[*:GET:http://192.168.0.15/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22id%22:1,%22method%22:%22Player.Open%22,%22params%22:{%22item%22:%20{%22file%22:%20%22playlists/1live.strm%22}}}]" } */
+/* Switch Radio_Off "Radio Aus" { http=">[*:GET:http://192.168.0.15/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22id%22:1,%22method%22:%22Player.Stop%22,%22params%22:{%22playerid%22:0}}]" } */

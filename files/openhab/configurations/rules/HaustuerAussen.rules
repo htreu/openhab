@@ -1,6 +1,6 @@
 rule "Haustuer Sonnenaufgang 30"
 when
-    Item Sunrise_Event_30 recieved update ON
+    Item Sunrise_Event_30 received update ON
 then {
     sendCommand(Lights_Outside_Frontdoor, OFF)
 }
@@ -8,7 +8,7 @@ then {
 
 rule "Haustuer Sonnenuntergang 30"
 when
-    Item Sunset_Event_30 recieved update ON
+    Item Sunset_Event_30 received update ON
 then
     sendCommand(Lights_Outside_Frontdoor, ON)
 end
@@ -37,4 +37,3 @@ when
 then
    sendNotification("henning.treu@codecentric.de", "Haustür")
 end
-
