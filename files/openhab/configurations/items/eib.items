@@ -43,7 +43,7 @@ Switch Lights_GF_Bad "Gäste WC"                           (GF_Lights, GF_Toilet
 Switch Lights_GF_Flur "Flur EG"                           (GF_Lights, GF_Corridor, Lights, GF_All_OFF) { knx="2/1/10+<12/1/10" }
 Switch Lights_GF_Eingang_Diele "Eingang Diele"            (GF_Lights, GF_Corridor, Lights, GF_All_OFF) { knx="2/1/16+</12/1/16" }
 Switch Lights_GF_WZ_Ecke "Wohnzimmer Eckenleuchten"       (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="2/1/17+<12/1/17" }
-Switch Lights_GF_WZ "Wohnzimmer"                          (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="<2/1/13" }
+Dimmer Lights_GF_WZ "Wohnzimmer"                          (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="<2/1/13, 2/1/25, 2/1/26" }
 Switch Lights_GF_Essen "Essecke"                          (GF_Lights, GF_Living, Lights, GF_All_OFF) { knx="2/1/11+</12/1/11" }
 
 /* Radio */
