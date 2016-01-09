@@ -13,6 +13,10 @@ then
         }
         sendCommand(AV_Source, 45)      // select source Favorites
         Thread::sleep(500)
+        sendCommand(AV_Playback, 13)
+        Thread::sleep(100)
+        sendCommand(AV_Playback, 13)
+        Thread::sleep(100)
         sendCommand(AV_Playback, 30)        // send command "enter" to start playback
         sendCommand(AV_Volume_Soll, 39)
     } else if (receivedCommand == OFF && AV_Pwr.state == ON) {
@@ -37,27 +41,29 @@ when
 then
     var int volume = (AV_Volume_Soll.state as DecimalType).intValue
     if (volume % 2 == 0) {
-        sendCommand(AV_Volume_Soll, "" + (volume + 1))
+        var int prev = (previousState.state as DecimalType).intValue
+        var int adjustment = prev > volume ? -1 : 1
+        sendCommand(AV_Volume_Soll, "" + (volume + adjustment))
         return
     }
 
     logInfo("set_AV_Volume_Soll", "command received")
     if (VolumeTimer == null) {
         logInfo("set_AV_Volume_Soll", "volumeTimer is null")
-        VolumeTimer = createTimer(now.plusMillis(500)) [| 
+        VolumeTimer = createTimer(now.plusMillis(500)) [|
             logInfo("set_AV_Volume_Soll", "AV_Volume_Soll: " + AV_Volume_Soll.state)
             logInfo("set_AV_Volume_Soll", "AV_Volume: " + AV_Volume.state)
             if (AV_Volume.state < AV_Volume_Soll.state) {
                 logInfo("set_AV_Volume_Soll", "increase")
-	        sendCommand(AV_Volume, INCREASE)
-	    } else if (AV_Volume.state > AV_Volume_Soll.state) {
+	              sendCommand(AV_Volume, INCREASE)
+	          } else if (AV_Volume.state > AV_Volume_Soll.state) {
                 logInfo("set_AV_Volume_Soll", "decrease")
                 sendCommand(AV_Volume, DECREASE)
-	    }
-	    if (AV_Volume.state != AV_Volume_Soll.state) {
+	          }
+      	    if (AV_Volume.state != AV_Volume_Soll.state) {
                 logInfo("set_AV_Volume_Soll", "reschedule inner")
-	        VolumeTimer.reschedule(now.plusMillis(500))
-	    } else {
+      	        VolumeTimer.reschedule(now.plusMillis(500))
+      	    } else {
                 logInfo("set_AV_Volume_Soll", "cancel")
                 VolumeTimer.cancel
                 VolumeTimer = null
