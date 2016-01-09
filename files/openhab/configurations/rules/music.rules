@@ -39,15 +39,21 @@ rule set_AV_Volume
 when
     Item AV_Volume_Soll received command
 then
+    if (AV_Pwr.state == OFF) {
+        logInfo("set_AV_Volume_Soll", "Receiver is OFF. Exiting."")
+        return
+    }
     var int volume = (AV_Volume_Soll.state as DecimalType).intValue
+    logInfo("set_AV_Volume_Soll", "command received: " + volume)
     if (volume % 2 == 0) {
-        var int prev = (previousState.state as DecimalType).intValue
-        var int adjustment = prev > volume ? -1 : 1
+        var int adjustment = 1
+        if (AV_Volume.state > AV_Volume_Soll.state) {
+            adjustment = -1
+        }
         sendCommand(AV_Volume_Soll, "" + (volume + adjustment))
         return
     }
 
-    logInfo("set_AV_Volume_Soll", "command received")
     if (VolumeTimer == null) {
         logInfo("set_AV_Volume_Soll", "volumeTimer is null")
         VolumeTimer = createTimer(now.plusMillis(500)) [|
