@@ -9,15 +9,14 @@ when
 then
     if (receivedCommand == ON) {
         if (AV_Pwr.state == OFF) {
-            sendCommand(AV_Pwr, ON)      // switch on VSX-528
+            sendCommand(AV_Pwr, ON)  // switch on VSX-528
         }
-        sendCommand(AV_Source, 45)      // select source Favorites
-        Thread::sleep(500)
-        sendCommand(AV_Playback, 13)
-        Thread::sleep(100)
-        sendCommand(AV_Playback, 13)
-        Thread::sleep(100)
-        sendCommand(AV_Playback, 30)        // send command "enter" to start playback
+        sendCommand(AV_Source, 45)   // select source Favorites
+        Thread::sleep(200)
+        sendCommand(AV_ListItem, 2) // select 2nd Item
+        Thread::sleep(200)
+        sendCommand(AV_Playback, 30) // send command "enter" to start playback
+        Thread::sleep(200)
         sendCommand(AV_Volume_Soll, 39)
     } else if (receivedCommand == OFF && AV_Pwr.state == ON) {
         sendCommand(AV_Pwr, OFF)
@@ -35,16 +34,16 @@ then
     }
 end
 
-rule set_AV_Volume
+rule set_AV_Volume_Soll
 when
     Item AV_Volume_Soll received command
 then
     if (AV_Pwr.state == OFF) {
-        logInfo("set_AV_Volume_Soll", "Receiver is OFF. Exiting."")
+        // logInfo("set_AV_Volume_Soll", "Receiver is OFF. Exiting."")
         return
     }
     var int volume = (AV_Volume_Soll.state as DecimalType).intValue
-    logInfo("set_AV_Volume_Soll", "command received: " + volume)
+    // logInfo("set_AV_Volume_Soll", "command received: " + volume)
     if (volume % 2 == 0) {
         var int adjustment = 1
         if (AV_Volume.state > AV_Volume_Soll.state) {
@@ -55,31 +54,31 @@ then
     }
 
     if (VolumeTimer == null) {
-        logInfo("set_AV_Volume_Soll", "volumeTimer is null")
+        // logInfo("set_AV_Volume_Soll", "volumeTimer is null")
         VolumeTimer = createTimer(now.plusMillis(500)) [|
-            logInfo("set_AV_Volume_Soll", "AV_Volume_Soll: " + AV_Volume_Soll.state)
-            logInfo("set_AV_Volume_Soll", "AV_Volume: " + AV_Volume.state)
+            // logInfo("set_AV_Volume_Soll", "AV_Volume_Soll: " + AV_Volume_Soll.state)
+            // logInfo("set_AV_Volume_Soll", "AV_Volume: " + AV_Volume.state)
             if (AV_Volume.state < AV_Volume_Soll.state) {
-                logInfo("set_AV_Volume_Soll", "increase")
+                // logInfo("set_AV_Volume_Soll", "increase")
 	              sendCommand(AV_Volume, INCREASE)
 	          } else if (AV_Volume.state > AV_Volume_Soll.state) {
-                logInfo("set_AV_Volume_Soll", "decrease")
+                // logInfo("set_AV_Volume_Soll", "decrease")
                 sendCommand(AV_Volume, DECREASE)
 	          }
       	    if (AV_Volume.state != AV_Volume_Soll.state) {
-                logInfo("set_AV_Volume_Soll", "reschedule inner")
+                // logInfo("set_AV_Volume_Soll", "reschedule inner")
       	        VolumeTimer.reschedule(now.plusMillis(500))
       	    } else {
-                logInfo("set_AV_Volume_Soll", "cancel")
+                // logInfo("set_AV_Volume_Soll", "cancel")
                 VolumeTimer.cancel
                 VolumeTimer = null
             }
         ]
     } else if (AV_Volume.state != AV_Volume_Soll.state) {
-        logInfo("set_AV_Volume_Soll", "reschedule outer")
+        // logInfo("set_AV_Volume_Soll", "reschedule outer")
         VolumeTimer.reschedule(now.plusMillis(500))
     } else {
-        logInfo("set_AV_Volume_Soll", "cancel")
+        // logInfo("set_AV_Volume_Soll", "cancel")
         VolumeTimer.cancel
         VolumeTimer = null
     }

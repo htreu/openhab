@@ -11,3 +11,6 @@ Switch Sunset_Event_60 { astro="planet=sun, type=set,   property=start, offset=6
 Switch Sunset_End    { astro="planet=sun, type=set,   property=end" }
 Switch Sunset_End_15 { astro="planet=sun, type=set,   property=end, offset=-15" } // 15 Minuten vor Ende Sonnenuntergang
 Switch Sunset_End_30 { astro="planet=sun, type=set,   property=end, offset=-30" } // 30 Minuten vor Ende Sonnenuntergang
+
+Switch EveningNight_Start { astro="planet=sun, type=eveningNight, property=start" }
+Switch EveningNight_Start_15 { astro="planet=sun, type=eveningNight, property=start, offset=-15" }

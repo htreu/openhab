@@ -12,3 +12,4 @@ Switch AV_HMG_Class "HMG class" { pioneeravr="ON:vsx528:HMG_CLASS" }
 Number AV_HMG_Num "HMG Num" { pioneeravr="*:vsx528:HMG_NUMKEY" }
 Switch AV_AdvCmd_Test "Adv Cmd test" { pioneeravr="INIT:vsx528:POWER_QUERY, ON:vsx528:#PO, OFF:vsx528:#PF" }
 Number AV_Playback "AV Playback" { pioneeravr="*:vsx528:#%2dPB" }
+Number AV_ListItem "AV ListItem" { pioneeravr="*:vsx528:#%05dGHP" } // see http://forums.indigodomo.com/viewtopic.php?f=31&t=9043&start=75

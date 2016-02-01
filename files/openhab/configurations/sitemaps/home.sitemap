@@ -21,7 +21,7 @@ sitemap home label="Postweg 36"
             Setpoint item=AV_Volume_Soll label="Volume Soll: [%s]" step=1
             Slider item=AV_Volume_Soll label="Volume Soll: [%s]"
             Text item=AV_Volume label="Volume Ist: [%s]"
-            Switch item=AV_Playback  mappings=[13="<", 30="Enter", 20="Stop", 12=">" ]
+            Switch item=AV_Playback mappings=[12="<", 30="Enter", 20="Stop", 13=">" ]
         }
     }
     Frame label="Temperatur" {

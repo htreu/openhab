@@ -15,17 +15,17 @@ then {
     sendCommand(Shutter_GF_WZ_rechts, UP)
 }
 
-rule "Rollos Sonnenuntergang Ende -30"
+rule "Rollos Evening Night Start - 15"
 when
-    Item Sunset_End_30 received update ON
+    Item EveningNight_Start_15 received update ON
 then
     sendCommand(Shutter_GF_WZ_links, DOWN)
     sendCommand(Shutter_GF_WZ_rechts, DOWN)
 end
 
-rule "Rollos Sonnenuntergang Ende -15"
+rule "Rollos Evening Night Start"
 when
-    Item Sunset_End_15 received update ON
+    Item EveningNight_Start received update ON
 then
     sendCommand(Shutter_GF_Kitchen, DOWN)
     sendCommand(Shutter_GF_Essen, DOWN)
