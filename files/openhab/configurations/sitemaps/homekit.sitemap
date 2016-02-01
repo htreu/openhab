@@ -1,5 +1,10 @@
 sitemap homekit label="Postweg 36 HomeKit" {
-    Switch item=Lights_GF_WZ label="Wohnzimmer"
-    Switch item=Lights_GF_Essen label="Esszimmer"
-    Switch item=Lights_GF_Kueche_Decke label="Küche"
+    Slider item=Lights_GF_WZ                  label="Wohnzimmer"
+    Switch item=Lights_GF_Essen               label="Esszimmer"
+    Switch item=Lights_GF_Kueche_Decke        label="Küche"
+    Switch item=Lights_GF_WZ_Ecke             label="Wohnzimmer Eckleuchten"
+    Switch item=Lights_GF_Kueche_Unterschrank label="Unterschrank"
+    Switch item=Lights_GF_Flur                label="Flur"
+    Switch item=Switch_GF_Radio               label="Radio"
+    Text item=Temperature_FF_Balkon           label="Garten"
 }
