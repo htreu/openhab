@@ -1,30 +1,59 @@
-rule cron_Rollershutter_Up
+// Wohnzimmer links
+rule Rollershutter_WZ_links_up
 when
-    // 07:30
-    Time cron "0 30 7 * * ?"
+    Item Shutter_GF_WZ_links received command 0
 then
-    sendCommand(Shutter_GF_Kitchen, UP)
-    sendCommand(Shutter_GF_Essen, UP)
     sendCommand(Shutter_GF_WZ_links, UP)
-    sendCommand(Shutter_GF_WZ_rechts, UP)
-    sendCommand(Shutter_FF_Bath, UP)
 end
 
-rule cron_Rollershutter_Down_1
+rule Rollershutter_WZ_links_down
 when
-    // 19:15
-    Time cron "0 15 19 * * ?"
+    Item Shutter_GF_WZ_links received command 100
 then
     sendCommand(Shutter_GF_WZ_links, DOWN)
+end
+
+// Wohnzimmer rechts
+rule Rollershutter_WZ_rechts_up
+when
+    Item Shutter_GF_WZ_rechts received command 0
+then
+    sendCommand(Shutter_GF_WZ_rechts, UP)
+end
+
+rule Rollershutter_WZ_rechts_down
+when
+    Item Shutter_GF_WZ_rechts received command 100
+then
     sendCommand(Shutter_GF_WZ_rechts, DOWN)
 end
 
-rule cron_Rollershutter_Down_2
+// Esszimmer
+rule Rollershutter_Esszimmer_up
 when
-    // 19:30
-    Time cron "0 30 19 * * ?"
+    Item Shutter_GF_Essen received command 0
+then
+    sendCommand(Shutter_GF_Essen, UP)
+end
+
+rule Rollershutter_Esszimmer_down
+when
+    Item Shutter_GF_Essen received command 100
+then
+    sendCommand(Shutter_GF_Essen, DOWN)
+end
+
+// Küche
+rule Rollershutter_Kueche_up
+when
+    Item Shutter_GF_Kitchen received command 0
+then
+    sendCommand(Shutter_GF_Kitchen, UP)
+end
+
+rule Rollershutter_Kueche_down
+when
+    Item Shutter_GF_Kitchen received command 100
 then
     sendCommand(Shutter_GF_Kitchen, DOWN)
-    sendCommand(Shutter_GF_Essen, DOWN)
-    sendCommand(Shutter_FF_Bath, DOWN)
 end
