@@ -7,4 +7,11 @@ sitemap homekit label="Postweg 36 HomeKit" {
     Switch item=Lights_GF_Flur                label="Flur"
     Switch item=Switch_GF_Radio               label="Radio"
     Text item=Temperature_FF_Balkon           label="Garten"
+
+    Switch item=Shutter_GF_Kitchen label="Küche"
+    Switch item=Shutter_GF_Essen label="Esszimmer"
+    Switch item=Shutter_GF_WZ_links label="Wohnzimmer links"
+    Switch item=Shutter_GF_WZ_rechts label="Wohnzimmer rechts"
+
+    Switch item=Shutter_FF_Bath label="Badezimmer"
 }
