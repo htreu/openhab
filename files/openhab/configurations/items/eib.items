@@ -7,20 +7,20 @@ Group Shutters  (All)
 Group Weather   (All)
 Group Status    (All)
 
-Group GF_Lights     "Licht Erdgeschoss"  <groundfloor>  (gGF)
-Group GF_Living     "Wohnzimmer"         <video>        (gGF, GF_Lights)
-Group GF_Kitchen    "Küche"             <kitchen>      (gGF, GF_Lights)
-Group GF_Toilet     "Gästebad"              <bath>         (gGF, GF_Lights)
-Group GF_Shutter    "Rolläden"                         (gGF)
-Group GF_Corridor   "Flur"               <corridor>     (gGF, GF_Lights)
-Group GF_Terrace    "Terasse"            <terrace>      (gGF, GF_Lights, Outdoor)
+Group GF_Lights     "Licht Erdgeschoss"  <groundfloor>   (gGF)
+Group GF_Living     "Wohnzimmer"         <video>         (gGF, GF_Lights)
+Group GF_Kitchen    "Küche"              <kitchen>       (gGF, GF_Lights)
+Group GF_Toilet     "Gästebad"           <bath>          (gGF, GF_Lights)
+Group GF_Shutter    "Rollladen"          <rollershutter> (gGF)
+Group GF_Corridor   "Flur"               <corridor>      (gGF, GF_Lights)
+Group GF_Terrace    "Terasse"            <terrace>       (gGF, GF_Lights, Outdoor)
 Group GF_All_OFF    "Erdgeschoss aus" /* Dummy Gruppe, alle Lampen im Erdgeschoss AUS.*/
 
 Group FF_Lights     "Licht Obergeschoss" <firstfloor>   (gFF)
 Group FF_Bath       "Badezimmer"         <bath>         (gFF)
 Group FF_Child      "Kinderzimmer"       <kids>         (gFF)
 Group FF_Bed        "Schlafzimmer"       <bedroom>      (gFF)
-Group FF_Shutter    "Rolläden"                         (gFF)
+Group FF_Shutter    "Rollladen"          <rollershutter> (gFF)
 Group FF_Corridor   "Flur"               <corridor>     (gFF)
 Group FF_All_OFF    "Obergeschoss aus" /* Dummy Gruppe, alle Lampen im Obergeschoss AUS.*/
 
@@ -76,9 +76,9 @@ Switch Lights_TF_Room "Zimmer Dach"                       (Lights) { knx="4/1/0"
 
 /* Rollershutters Up/Down, Stop/Move */
 /* Rollershutter Shutter_GF_Living "Shutter" (GF_Living, Shutters) { knx="4/2/10, 4/2/11" }  */
-Rollershutter Shutter_GF_Kitchen "Rollo Küche"               (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/30, 2/2/31" }
-Rollershutter Shutter_GF_Essen "Rollo Essen"                 (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/32, 2/2/33" }
-Rollershutter Shutter_GF_WZ_links "Rollo Wohnzimmer links"   (GF_Shutter, GF_Living, Shutters)  { knx="2/2/34, 2/2/35" }
-Rollershutter Shutter_GF_WZ_rechts "Rollo Wohnzimmer rechts" (GF_Shutter, GF_Living, Shutters)  { knx="2/2/36, 2/2/37" }
+Rollershutter Shutter_GF_Kitchen "Küche"               (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/30, 2/2/31" }
+Rollershutter Shutter_GF_Essen "Esszimmer"                 (GF_Shutter, GF_Kitchen, Shutters) { knx="2/2/32, 2/2/33" }
+Rollershutter Shutter_GF_WZ_links "Wohnzimmer links"   (GF_Shutter, GF_Living, Shutters)  { knx="2/2/34, 2/2/35" }
+Rollershutter Shutter_GF_WZ_rechts "Wohnzimmer rechts" (GF_Shutter, GF_Living, Shutters)  { knx="2/2/36, 2/2/37" }
 
-Rollershutter Shutter_FF_Bath "Rollo Badezimmer"             (FF_Shutter, FF_Bath, Shutters)    { knx="3/2/30, 3/2/31" }
+Rollershutter Shutter_FF_Bath "Badezimmer"             (FF_Shutter, FF_Bath, Shutters)    { knx="3/2/30, 3/2/31" }
