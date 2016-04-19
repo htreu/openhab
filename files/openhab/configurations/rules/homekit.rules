@@ -2,5 +2,20 @@ rule "system startup"
 when
   System started
 then
-  executeCommandLine("/opt/OpenHAB-HomeKit-Bridge/start.sh");
+  // executeCommandLine("/opt/OpenHAB-HomeKit-Bridge/start.sh");
+end
+
+rule "coming home"
+when
+  Item at_home received command ON
+then
+  sendNotification("henning.treu@codecentric.de", "welcome home")
+  sendCommand(Lights_GF_Eingang_Diele, ON)
+end
+
+rule "leaving home"
+when
+  Item at_home received command OFF
+then
+  sendNotification("henning.treu@codecentric.de", "bye, bye.")
 end
